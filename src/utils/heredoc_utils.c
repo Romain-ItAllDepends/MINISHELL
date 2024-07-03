@@ -69,6 +69,14 @@ void	heredoc_setup(t_redirection *redirection,
 		signal(SIGINT, quit);
 		ft_heredoc(redirection,
 			tmp_command->redirections, env, vars);
+		ft_lstclear_env(&env);
+		ft_lstclear_arguments(&tmp_command->arguments);
+		ft_lstclear_redirections(&tmp_command->redirections);
+		ft_lstclear_commands(&tmp_command);
+		ft_lstclear_final_redirection(&redirection);
+		ft_free(vars->path);
+		free(vars);
+		exit(0);
 	}
 	else
 	{
