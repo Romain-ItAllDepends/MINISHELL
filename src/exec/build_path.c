@@ -72,7 +72,8 @@ static int	handle_path_with_slash(char **full_cmd)
 			return (127);
 		}
 	}
-	ft_putstr_fd(" command not found\n", 2);
+	ft_putstr_fd(full_cmd[0], 2);
+	ft_putstr_fd(": command not found\n", 2);
 	return (127);
 }
 

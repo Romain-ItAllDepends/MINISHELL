@@ -17,7 +17,8 @@ static char	*process_successful_command(t_command_line_parsing
 {
 	ft_cmd_manager(env, parsing_result, vars);
 	ft_lstclear_commands(&parsing_result->commands);
-	free(parsing_result);
+	if (parsing_result)
+		free(parsing_result);
 	if (command_line)
 		free(command_line);
 	command_line = NULL;
@@ -60,10 +61,11 @@ int	ft_readline(t_env **env, t_vars *vars)
 		set_interactive_mode(1);
 		command_line = readline("minishell ~ ");
 		set_interactive_mode(2);
-		if (command_line == NULL)
+		if (!command_line)
 		{
-			write(2, "exit\n", 5);
-			free(command_line);
+			ft_putstr_fd("exit\n", 2);
+			if (command_line)
+				free(command_line);
 			break ;
 		}
 		command_line = verif_command_line(command_line, env, vars);
