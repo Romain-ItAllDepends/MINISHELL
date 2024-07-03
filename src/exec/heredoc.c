@@ -87,6 +87,8 @@ static char	*last_heredoc(char *tmp_content, t_redirection *redirection,
 	return (NULL);
 }
 
+// Mettre en int pour return dehors
+
 void	ft_heredoc(t_redirection *redirection,
 		t_redirection_to_expand *all,
 		t_env *env, t_vars *vars)
@@ -115,5 +117,9 @@ void	ft_heredoc(t_redirection *redirection,
 		}
 		all = all->next;
 	}
+	ft_lstclear_env(&env);
+	ft_lstclear_redirections(&all);
+	ft_lstclear_final_redirection(&redirection);
+	free(vars);
 	exit(vars->exit_code);
 }

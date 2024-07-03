@@ -12,28 +12,44 @@
 
 #include "../../minishell.h"
 
-int	child_process(t_vars *vars, t_redirection *redirect
-		, char **actual_cmd, t_env **env)
+static void    free_child_process(t_vars *vars, t_redirection *redirect
+        , char **actual_cmd, t_env **env)
 {
-	if (redirect->ambiguous == TRUE)
-		exit(1);
-	if (check_error_redirect_infifle_fd(redirect) == 1)
-		exit (1);
-	if (check_error_redirect_outfile_fd(redirect) == 1)
-		exit (1);
-	ft_flow_redirection(vars, redirect);
-	ft_close_fd(vars);
-	if (actual_cmd != NULL && is_builtins_exec(vars) == 1)
-	{
-		cmd_selector(env, vars->cmd[vars->cmd_index - 1], vars, redirect);
-		exit(0);
-	}
-	if (actual_cmd == NULL || actual_cmd[0][0] == 0)
-		exit (0);
-	execve(actual_cmd[0], actual_cmd, vars->env);
-	ft_close_fd(vars);
-	error_close_files(redirect);
-	return (1);
+    ft_free(actual_cmd);
+    ft_lstclear_env(env);
+    ft_lstclear_final_redirection(&redirect);
+    ft_free_tab_3d(vars);
+    ft_free(vars->full_cmd);
+	free(vars);
+}
+
+int    child_process(t_vars *vars, t_redirection *redirect
+        , char **actual_cmd, t_env **env)
+{
+    if (redirect->ambiguous == TRUE)
+        exit(1);
+    if (check_error_redirect_infifle_fd(redirect) == 1)
+        exit (1);
+    if (check_error_redirect_outfile_fd(redirect) == 1)
+        exit (1);
+    ft_flow_redirection(vars, redirect);
+    ft_close_fd(vars);
+    if (actual_cmd != NULL && is_builtins_exec(vars) == 1)
+    {
+        cmd_selector(env, vars->cmd[vars->cmd_index - 1], vars, redirect);
+        exit(0);
+    }
+    if (actual_cmd == NULL || actual_cmd[0][0] == 0)
+    {
+        // free_child_process(vars, redirect, actual_cmd, env);
+		// close(redirect->infile_fd);
+        exit (0);
+    }
+    execve(actual_cmd[0], actual_cmd, vars->env);
+    ft_close_fd(vars);
+    error_close_files(redirect);
+    free_child_process(vars, redirect, actual_cmd, env);
+    return (1);
 }
 
 // void	error_close_files(t_redirection *redirect)
