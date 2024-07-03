@@ -18,7 +18,7 @@ char	**error_command_for_find_path(char **command_line, t_vars *vars)
 		|| command_line[0][0] == '\0')
 	{
 		ft_putstr_fd(command_line[0], 2);
-		ft_putstr_fd(" command not found.\n", 2);
+		ft_putstr_fd(": command not found.\n", 2);
 		vars->exit_code = 127;
 		return (command_line);
 	}
@@ -31,17 +31,20 @@ int	access_dir(char **command_line, DIR *dir, t_vars *vars)
 	{
 		if (command_line[0][0] == '.' && command_line[0][1] == '/')
 		{
-			ft_putstr_fd(" Is a directory\n", 2);
+			ft_putstr_fd(command_line[0], 2);
+			ft_putstr_fd(": Is a directory\n", 2);
 			vars->exit_code = 126;
 		}
 		else if (ft_strcspn(command_line[0], "/") == ft_strlen(command_line[0]))
 		{
-			ft_putstr_fd(" command not found\n", 2);
+			ft_putstr_fd(command_line[0], 2);
+			ft_putstr_fd(": command not found\n", 2);
 			vars->exit_code = 127;
 		}
 		else if (strncmp(command_line[0], "/nfs", 4) == 0)
 		{
-			ft_putstr_fd(" Is a directory\n", 2);
+			ft_putstr_fd(command_line[0], 2);
+			ft_putstr_fd(": Is a directory\n", 2);
 			vars->exit_code = 126;
 		}
 	}
