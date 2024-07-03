@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:33:20 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/20 16:36:10 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:30:55 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,26 @@ void	print_not_option_n(char **command)
 void	print_with_option_n_fd(char **command, int fd)
 {
 	int	i;
+	int	j;
 
 	i = 2;
+	j = 0;	
 	while (command[i])
 	{
-		ft_putstr_fd(command[i], fd);
+		while (command[i][j])
+		{
+			if (command[i][j] != 'n' && command[i][j] != '-')
+			{
+				while (command[i])
+				{
+					ft_putstr_fd(command[i], fd);
+					i++;
+				}
+				return ;
+			}
+			j++;
+		}
+		j = 0;
 		i++;
 	}
 }

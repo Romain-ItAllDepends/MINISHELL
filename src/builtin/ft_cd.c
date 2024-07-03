@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:21:16 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/01 14:09:19 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/03 11:29:30 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_chdid_and_verif(char *stock)
 	if (chdir(stock) == -1)
 	{
 		write (2, " No such file or directory\n", 27);
-		exit(EXIT_FAILURE); // get exit code
+		return (stock);
 	}
 	return (stock);
 }
