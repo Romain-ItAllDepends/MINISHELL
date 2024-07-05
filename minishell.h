@@ -40,6 +40,7 @@ typedef struct s_vars
 {
 	pid_t	child;
 	pid_t	last_child;
+	t_bool	exit;
 	int		nb_cmd;
 	int		cmd_index;
 	char	**path;

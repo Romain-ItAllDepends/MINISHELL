@@ -82,14 +82,16 @@ int	ft_exit(char **command)
 	i = 0;
 	if (command[1] == NULL || command[1][0] == '\0'
 		|| ft_strncmp(command[1], "-9223372036854775808", 21) == 0)
-		ft_exit_message_0();
-	if (has_invalid_argument(command[1], command[2]))
-		exit(1);
-	if (ft_atol(command[1]) >= 0)
-		tmp = ft_atol(command[1]) % 256;
+		tmp = 0;
 	else
-		tmp = 256 - (-1 * ft_atol(command[1]) % 256);
+	{
+		if (has_invalid_argument(command[1], command[2]))
+			exit(1);
+		if (ft_atol(command[1]) >= 0)
+			tmp = ft_atol(command[1]) % 256;
+		else
+			tmp = 256 - (-1 * ft_atol(command[1]) % 256);
+	}
 	printf("exit\n");
-	exit(tmp);
-	return (0);
+	return (tmp);
 }

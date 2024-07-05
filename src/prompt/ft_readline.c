@@ -62,6 +62,12 @@ int	ft_readline(t_env **env, t_vars *vars)
 	command_line = NULL;
 	while (1)
 	{
+		if (vars->exit == TRUE)
+		{
+			ft_lstclear_env(env);
+			free(vars);
+			exit(vars->exit_code);
+		}
 		if (command_line)
 			free(command_line);
 		command_line = NULL;

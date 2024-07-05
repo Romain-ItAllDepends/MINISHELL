@@ -31,6 +31,9 @@ int	cmd_selector(t_env **env, char **command_line,
 	if (manage_env(command_line, &vars, redirect) == 0)
 		return (0);
 	if (vars->nb_cmd == 1 && manage_exit(command_line, &vars) == 0)
+	{
+		vars->exit = TRUE;
 		return (0);
+	}
 	return (1);
 }
