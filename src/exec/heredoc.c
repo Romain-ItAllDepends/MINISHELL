@@ -117,10 +117,4 @@ void	ft_heredoc(t_redirection *redirection,
 		}
 		all = all->next;
 	}
-	ft_lstclear_env(&env);
-	ft_lstclear_redirections(&all);
-	ft_lstclear_final_redirection(&redirection);
-	count = vars->exit_code;
-	// free(vars);
-	exit(count);
 }

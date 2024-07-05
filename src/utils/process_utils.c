@@ -13,20 +13,16 @@
 #include "../../minishell.h"
 
 static void    free_child_process(t_vars *vars, t_redirection *redirect
-        , char **actual_cmd, t_env **env)
+        , t_env **env)
 {
-    if (actual_cmd)
-		ft_free(actual_cmd);
+	if (vars->env)
+		free(vars->env);
 	if (env)
    		ft_lstclear_env(env);
 	if (redirect)
 		ft_lstclear_final_redirection(&redirect);
 	if (vars->cmd)
-    	ft_free_tab_3d(vars);
-	if (vars->full_cmd)
-    	ft_free(vars->full_cmd);
-	if (vars->env)
-		ft_free(vars->env);
+		ft_free_tab_3d(vars);
 	if (vars)
 		free(vars);
 }
@@ -38,7 +34,8 @@ int    child_process(t_vars *vars, t_redirection *redirect
 		|| check_error_redirect_outfile_fd(redirect) == 1
 		|| redirect->ambiguous == TRUE)
 	{
-		free_child_process(vars, redirect, actual_cmd, env);
+		ft_close_fd(vars);
+		free_child_process(vars, redirect, env);
         exit (1);
 	}
     ft_flow_redirection(vars, redirect);
@@ -46,16 +43,20 @@ int    child_process(t_vars *vars, t_redirection *redirect
     if (actual_cmd != NULL && is_builtins_exec(vars) == 1)
     {
         cmd_selector(env, vars->cmd[vars->cmd_index - 1], vars, redirect);
-		free_child_process(vars, redirect, actual_cmd, env);
+		free_child_process(vars, redirect, env);
         exit(0);
     }
     if (actual_cmd == NULL || actual_cmd[0][0] == 0)
     {
-        free_child_process(vars, redirect, actual_cmd, env);
+        free_child_process(vars, redirect, env);
         exit (0);
     }
-	if (access(actual_cmd[0], X_OK) == 0)
-    	execve(actual_cmd[0], actual_cmd, vars->env);
+	if (access(actual_cmd[0], X_OK) == -1)
+	{
+		free_child_process(vars, redirect, env);
+        exit(127);
+	}
+    execve(actual_cmd[0], actual_cmd, vars->env);
     ft_close_fd(vars);
     error_close_files(redirect);
     exit(1);

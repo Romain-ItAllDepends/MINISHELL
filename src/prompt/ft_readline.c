@@ -16,7 +16,14 @@ static char	*process_successful_command(t_command_line_parsing
 *parsing_result, t_env **env, char *command_line, t_vars *vars)
 {
 	ft_cmd_manager(env, parsing_result, vars);
-	ft_lstclear_commands(&parsing_result->commands);
+	if (parsing_result->commands
+		&& parsing_result->commands->redirections)
+		ft_lstclear_redirections(&parsing_result->commands->redirections);
+	if (parsing_result->commands
+		&& parsing_result->commands->arguments)
+		ft_lstclear_arguments(&parsing_result->commands->arguments);
+	if (parsing_result->commands)
+		ft_lstclear_commands(&parsing_result->commands);
 	if (parsing_result)
 		free(parsing_result);
 	if (command_line)
@@ -55,6 +62,12 @@ int	ft_readline(t_env **env, t_vars *vars)
 	command_line = NULL;
 	while (1)
 	{
+		if (vars->exit == TRUE)
+		{
+			ft_lstclear_env(env);
+			free(vars);
+			exit(vars->exit_code);
+		}
 		if (command_line)
 			free(command_line);
 		command_line = NULL;

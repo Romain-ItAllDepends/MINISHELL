@@ -63,17 +63,18 @@ static int	handle_path_with_slash(char **full_cmd)
 	if (ft_strcspn(full_cmd[0], "/") < ft_strlen(full_cmd[0]))
 	{
 		if (full_cmd[0][0] == '.' && full_cmd[0][1] == '/')
-		{
 			return (check_and_open_dir(&full_cmd[0][2]));
-		}
 		else
 		{
 			ft_putstr_fd(" No such file or directory\n", 2);
 			return (127);
 		}
 	}
-	ft_putstr_fd(full_cmd[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
+	else
+	{
+		ft_putstr_fd(full_cmd[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
 	return (127);
 }
 

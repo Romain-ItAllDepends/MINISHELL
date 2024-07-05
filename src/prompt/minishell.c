@@ -35,6 +35,7 @@ int	main(int ac, char **av, char *envp[])
 		return (1);
 	env = NULL;
 	vars->env = NULL;
+	vars->exit = FALSE;
 	vars->exit_code = 0;
 	vars->exit_code_signal = 0;
 	(void)av;

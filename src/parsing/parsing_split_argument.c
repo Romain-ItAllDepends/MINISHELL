@@ -47,13 +47,13 @@ static void	rest_argument(t_char_list	**tmp_char,
 		&& (*tmp_char)->value != '\t' && (*tmp_char)->value != '\n'
 		&& in_quote == FALSE)
 	{
-		while (tmp_char && in_quote == FALSE)
+		while (*tmp_char && in_quote == FALSE)
 		{
 			if (function_verif_quote(tmp_char, &quote, &in_quote) == 1)
 				break ;
 			fill_no_quote_arg(tmp_char, splitted_chars, quote);
 		}
-		while (tmp_char && in_quote == TRUE)
+		while (*tmp_char && in_quote == TRUE)
 		{
 			in_quote = quote_function(tmp_char, &quote, in_quote);
 			fill_in_quote_arg(tmp_char, splitted_chars, quote);
@@ -78,6 +78,8 @@ static int	set_last_point(t_argument **tmp, t_char_list **tmp_char)
 static void	set_var(t_argument *tmp, t_char_list **tmp_char)
 {
 	*tmp_char = tmp->chars;
+	while (*tmp_char && (*tmp_char)->last_pos == FALSE)
+		*tmp_char = (*tmp_char)->next;
 	(*tmp_char)->last_pos = FALSE;
 }
 
@@ -106,6 +108,9 @@ int	ft_split_argument(t_argument *argument_to_split,
 	}
 	rest_argument(&tmp_char, &splitted_arguments->chars);
 	ft_lstadd_back_argument(args, splitted_arguments);
+	while (tmp_char && (tmp_char->value == SPACE
+		|| tmp_char->value == TAB || tmp_char->value == NEWLINE))
+		tmp_char = tmp_char->next;
 	if (set_last_point(&tmp, &tmp_char) == 0)
 		return (0);
 	return (1);
