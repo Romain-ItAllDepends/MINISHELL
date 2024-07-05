@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:20:34 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/30 14:12:33 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/05 14:11:42 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ int	ft_readline(t_env **env, t_vars *vars)
 			exit(vars->exit_code);
 		}
 		if (command_line)
+		{
 			free(command_line);
-		command_line = NULL;
+			command_line = NULL;
+		}
 		set_interactive_mode(1);
 		command_line = readline("minishell ~ ");
 		set_interactive_mode(2);
 		if (!command_line)
 		{
 			ft_putstr_fd("exit\n", 2);
-			if (command_line)
-				free(command_line);
 			break ;
 		}
 		command_line = verif_command_line(command_line, env, vars);
