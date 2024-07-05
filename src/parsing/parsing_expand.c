@@ -51,6 +51,7 @@ static void	ft_expand_arguments(t_argument_to_expand *tmp_to_expand, t_env *env,
 			argument_with_expanded_vars = NULL;
 			break ;
 		}
+		argument_with_expanded_vars->chars->last_pos = TRUE;
 		ft_lstadd_back_argument(args_with_expanded_vars,
 			argument_with_expanded_vars);
 		tmp_to_expand = tmp_to_expand->next;

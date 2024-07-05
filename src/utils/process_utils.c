@@ -51,8 +51,12 @@ int    child_process(t_vars *vars, t_redirection *redirect
         free_child_process(vars, redirect, env);
         exit (0);
     }
-	if (access(actual_cmd[0], X_OK) == 0)
-    	execve(actual_cmd[0], actual_cmd, vars->env);
+	if (access(actual_cmd[0], X_OK) == -1)
+	{
+		free_child_process(vars, redirect, env);
+        exit(127);
+	}
+    execve(actual_cmd[0], actual_cmd, vars->env);
     ft_close_fd(vars);
     error_close_files(redirect);
     exit(1);
