@@ -12,6 +12,31 @@
 
 #include "../../minishell.h"
 
+static t_redirection_parsing	*unclose_quote(char *str,
+	t_redirection_parsing *result)
+{
+	int		i;
+	char	quote;
+
+	i = 0;
+	if (str && (str[i] == '\'' || str[i] == '"'))
+	{
+		quote = str[i];
+		i++;
+	}
+	while (str && str[i] && str[i] != quote)
+	{
+		i++;
+		if (str[i] == quote)
+			result->did_succeed = TRUE;
+		else
+			result->did_succeed = FALSE;
+	}
+	if (result->did_succeed == FALSE)
+		ft_putstr_fd("Error: quotes are not closed !\n", 2);
+	return (result);
+}
+
 t_redirection_parsing	*parse_redirection(char *str)
 {
 	t_redirection_parsing	*redirection_result;
@@ -29,6 +54,9 @@ t_redirection_parsing	*parse_redirection(char *str)
 		str = skip_one_character(str);
 	str = skip_one_character(str);
 	str = skip_spaces(str);
+	redirection_result = unclose_quote(str, redirection_result);
+	if (redirection_result->did_succeed == FALSE)
+		return (redirection_result);
 	redirection_result->redirection->arg = ft_strjoin_file(
 			str);
 	str = ft_skip_arg(str, " \n\t|><");
