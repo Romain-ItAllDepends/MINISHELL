@@ -19,7 +19,8 @@ void	ft_free(char **tab)
 	i = 0;
 	if (!tab)
 		return ;
-	if (!tab[0]) {
+	if (!tab[0])
+	{
 		free(tab);
 		return ;
 	}
@@ -52,11 +53,3 @@ void	ft_free_tab_3d(t_vars *vars)
 	}
 	free(vars->cmd);
 }
-
-// void	ft_free_vars_input(char *command_line, char **env)
-// {
-// 	ft_lstclear_env(&env);
-// 	free(vars->input);
-// 	free(vars);
-// 	return (0);
-// }

@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:20:34 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/30 14:12:33 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/06 11:26:09 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ static char	*verif_command_line(char *command_line
 	return (command_line);
 }
 
+static void	free_exit(t_env **env, t_vars *vars)
+{
+	ft_lstclear_env(env);
+	free(vars);
+	exit(vars->exit_code);
+}
+
 int	ft_readline(t_env **env, t_vars *vars)
 {
 	char							*command_line;
@@ -63,11 +70,7 @@ int	ft_readline(t_env **env, t_vars *vars)
 	while (1)
 	{
 		if (vars->exit == TRUE)
-		{
-			ft_lstclear_env(env);
-			free(vars);
-			exit(vars->exit_code);
-		}
+			free_exit(env, vars);
 		if (command_line)
 			free(command_line);
 		command_line = NULL;

@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/01 12:00:53 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/06 11:42:18 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -639,5 +639,16 @@ void							refresh_index(char *str, int *i,
 t_bool							need_to_be_expand_hd(char *str, t_env *env);
 int								ft_strlen_with_expand(char *str, t_env *env,
 									t_vars *vars);
+void							rest_argument(t_char_list **tmp_char,
+									t_char_list **splitted_chars);
+int								set_last_point(t_argument **tmp,
+									t_char_list **tmp_char);
+void							set_var(t_argument *tmp,
+									t_char_list **tmp_char);
+void							fill_expanded_arg(t_char_list **tmp_char,
+									t_char_list **splitted_chars);
+void							fill_not_expand_arg(t_char_list **tmp_char,
+									t_char_list **splitted_chars,
+									t_bool *in_quote, char *quote);
 
 #endif

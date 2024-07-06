@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:33:20 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/03 11:30:55 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/06 11:35:00 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	print_with_option_n_fd(char **command, int fd)
 	int	j;
 
 	i = 2;
-	j = 0;	
+	j = 0;
 	while (command[i])
 	{
 		while (command[i][j])
