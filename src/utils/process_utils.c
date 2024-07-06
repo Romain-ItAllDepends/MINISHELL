@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 21:22:31 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/06 11:33:30 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/06 14:40:40 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,28 @@ static void	free_child_process(t_vars *vars,
 		free(vars);
 }
 
+static void	is_dir(t_vars *vars, t_redirection *redirect
+	, char **actual_cmd, t_env **env)
+{
+	DIR	*dir;
+
+	if (access(actual_cmd[0], X_OK) == -1)
+	{
+		free_child_process(vars, redirect, env);
+		exit(127);
+	}
+	else if (actual_cmd[0][0] == '.' && actual_cmd[0][1] == '/')
+	{
+		dir = opendir(&actual_cmd[0][2]);
+		if (dir)
+		{
+			free_child_process(vars, redirect, env);
+			closedir(dir);
+			exit(126);
+		}
+	}
+}
+
 static void	verif_or_builtins(t_vars *vars, t_redirection *redirect
 	, char **actual_cmd, t_env **env)
 {
@@ -41,11 +63,7 @@ static void	verif_or_builtins(t_vars *vars, t_redirection *redirect
 		free_child_process(vars, redirect, env);
 		exit (0);
 	}
-	if (access(actual_cmd[0], X_OK) == -1)
-	{
-		free_child_process(vars, redirect, env);
-		exit(127);
-	}
+	is_dir(vars, redirect, actual_cmd, env);
 }
 
 int	child_process(t_vars *vars, t_redirection *redirect
