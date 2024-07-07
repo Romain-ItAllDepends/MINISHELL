@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:40:40 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/07 13:17:55 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 16:01:42 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	quit(int sig_num)
 {
-	exit(sig_num + 128);
+	g_sig = sig_num + 128;
 }
 
 void	complete_heredoc(t_redirection *redirection,

@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 21:22:31 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/07 13:38:50 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 15:19:46 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	is_dir(t_vars *vars, t_redirection *redirect
 	if (access(actual_cmd[0], X_OK) == -1)
 	{
 		free_child_process(vars, redirect, env, tmp);
-		exit(127);
+		vars->exit_code = 127;
 	}
 	else if (actual_cmd[0][0] == '.' && actual_cmd[0][1] == '/')
 	{
@@ -48,7 +48,7 @@ static void	is_dir(t_vars *vars, t_redirection *redirect
 		{
 			free_child_process(vars, redirect, env, tmp);
 			closedir(dir);
-			exit(126);
+			vars->exit_code = 126;
 		}
 	}
 }
@@ -57,13 +57,15 @@ static void	verif_or_builtins(t_vars *vars, t_redirection *redirect
 	, t_env **env, t_command_line_parsing *tmp)
 {
 	char	**actual_cmd;
+	int		exit_code;
 
+	exit_code = vars->exit_code;
 	actual_cmd = vars->cmd[vars->cmd_index - 1];
 	if (actual_cmd != NULL && is_builtins_exec(vars) == 1)
 	{
 		cmd_selector(env, vars->cmd[vars->cmd_index - 1], vars, redirect);
 		free_child_process(vars, redirect, env, tmp);
-		exit(0);
+		exit(exit_code);
 	}
 	if (actual_cmd == NULL || actual_cmd[0][0] == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 14:59:39 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/07 13:38:32 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 15:30:27 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static void	free_heredoc_child(t_env *env, t_vars *vars,
 	ft_lstclear_final_redirection(&redirection, vars);
 	ft_free(vars->path);
 	free(vars);
+	if (g_sig != 0)
+		exit(g_sig);
 	exit(0);
 }
 

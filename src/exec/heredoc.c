@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:11:14 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/07 13:41:31 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 16:03:39 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*fill_tmp_content(char *tmp_content, t_redirection *redirection,
 		error_heredoc(tmp_content, count, vars);
 		return (tmp_content);
 	}
-	if (ft_strcmp(tmp_content, tmp_redirection->limiter) == 0)
+	if (ft_strcmp(tmp_content, tmp_redirection->limiter) == 0 || g_sig == 130)
 	{
 		free(tmp_content);
 		tmp_content = NULL;
@@ -100,7 +100,7 @@ void	ft_heredoc(t_redirection *redirection,
 		if (all->e_type == REDIRECTION_HEREDOC)
 		{
 			count = 0;
-			while (ft_strcmp(tmp, all->arg) != 0 || count == 0)
+			while ((ft_strcmp(tmp, all->arg) != 0 || count == 0) && g_sig != 130)
 			{
 				if (redirection->e_position == HERE && is_last(all) == all)
 					tmp = last_heredoc(tmp, redirection, env, vars);

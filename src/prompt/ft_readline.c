@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:20:34 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/07 11:28:24 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 15:06:25 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,12 @@ static char	*verif_command_line(char *command_line
 
 static void	free_exit(t_env **env, t_vars *vars)
 {
+	int	exit_code;
+
+	exit_code = vars->exit_code;
 	ft_lstclear_env(env);
 	free(vars);
-	exit(vars->exit_code);
+	exit(exit_code);
 }
 
 int	ft_readline(t_env **env, t_vars *vars)
@@ -72,16 +75,16 @@ int	ft_readline(t_env **env, t_vars *vars)
 		if (vars->exit == TRUE)
 			free_exit(env, vars);
 		if (command_line)
-		{
 			free(command_line);
-			command_line = NULL;
-		}
+		command_line = NULL;
 		set_interactive_mode(1);
 		command_line = readline("minishell ~ ");
 		set_interactive_mode(2);
 		if (!command_line)
 		{
 			ft_putstr_fd("exit\n", 2);
+			if (command_line)
+				free(command_line);
 			break ;
 		}
 		command_line = verif_command_line(command_line, env, vars);

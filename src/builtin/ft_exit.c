@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:36:51 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/01 13:55:06 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 15:10:18 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	ft_exit(char **command)
 	else
 	{
 		if (has_invalid_argument(command[1], command[2]))
-			exit(1);
+			return (2);
 		if (ft_atol(command[1]) >= 0)
 			tmp = ft_atol(command[1]) % 256;
 		else
