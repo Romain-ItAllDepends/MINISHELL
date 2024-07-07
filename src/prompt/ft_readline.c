@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:20:34 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/06 11:26:09 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 11:28:24 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static char	*process_successful_command(t_command_line_parsing
 *parsing_result, t_env **env, char *command_line, t_vars *vars)
 {
 	ft_cmd_manager(env, parsing_result, vars);
-	if (parsing_result->commands
+	if (parsing_result && parsing_result->commands
 		&& parsing_result->commands->redirections)
 		ft_lstclear_redirections(&parsing_result->commands->redirections);
-	if (parsing_result->commands
+	if (parsing_result && parsing_result->commands
 		&& parsing_result->commands->arguments)
 		ft_lstclear_arguments(&parsing_result->commands->arguments);
-	if (parsing_result->commands)
+	if (parsing_result && parsing_result->commands)
 		ft_lstclear_commands(&parsing_result->commands);
 	if (parsing_result)
 		free(parsing_result);

@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 14:59:39 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/06 16:15:26 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:38:32 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,13 @@ void	prepare_heredoc(t_redirection *redirection,
 }
 
 static void	free_heredoc_child(t_env *env, t_vars *vars,
-	t_command_to_expand *tmp_command, t_redirection *redirection)
+	t_command_line_parsing *tmp_command, t_redirection *redirection)
 {
 	ft_lstclear_env(&env);
-	ft_lstclear_arguments(&tmp_command->arguments);
-	ft_lstclear_redirections(&tmp_command->redirections);
-	ft_lstclear_commands(&tmp_command);
+	ft_lstclear_arguments(&tmp_command->commands->arguments);
+	ft_lstclear_redirections(&tmp_command->commands->redirections);
+	ft_lstclear_commands(&tmp_command->commands);
+	free(tmp_command);
 	ft_lstclear_final_redirection(&redirection, vars);
 	ft_free(vars->path);
 	free(vars);
@@ -71,7 +72,7 @@ static void	free_heredoc_child(t_env *env, t_vars *vars,
 }
 
 void	heredoc_setup(t_redirection *redirection,
-	t_command_to_expand *tmp_command, t_env *env, t_vars *vars)
+	t_command_line_parsing *tmp_command, t_env *env, t_vars *vars)
 {
 	pid_t	child;
 	int		wstatus;
@@ -81,7 +82,7 @@ void	heredoc_setup(t_redirection *redirection,
 	{
 		signal(SIGINT, quit);
 		ft_heredoc(redirection,
-			tmp_command->redirections, env, vars);
+			tmp_command->commands->redirections, env, vars);
 		free_heredoc_child(env, vars, tmp_command, redirection);
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_processes_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 20:20:15 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/20 12:53:22 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/07 13:23:17 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int	choice_pipe_setup(t_vars *vars)
 		return (setup_pipe(vars->pipe_2));
 }
 
-void	process_commands(t_vars *vars, t_redirection **redirect, t_env **envp)
+void	process_commands(t_vars *vars, t_redirection **redirect,
+	t_env **envp, t_command_line_parsing *tmp_free)
 {
 	t_redirection	*tmp;
 
@@ -72,7 +73,7 @@ void	process_commands(t_vars *vars, t_redirection **redirect, t_env **envp)
 		if (vars->nb_cmd >= 2
 			|| cmd_selector(envp, vars->cmd[vars->cmd_index - 1],
 				vars, *redirect) == 1)
-			process(vars, tmp, envp);
+			process(vars, tmp, envp, tmp_free);
 		if (vars->cmd[vars->cmd_index - 1] != NULL
 			&& (ft_strcmp(vars->cmd[vars->cmd_index - 1][0], "export") == 0
 			|| ft_strcmp(vars->cmd[vars->cmd_index - 1][0], "unset") == 0))

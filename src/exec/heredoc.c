@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:11:14 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/06 14:54:57 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:41:31 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ static char	*last_heredoc(char *tmp_content, t_redirection *redirection,
 		free(tmp_content);
 	return (NULL);
 }
-
-// Mettre en int pour return dehors vars->exit_code
 
 void	ft_heredoc(t_redirection *redirection,
 		t_redirection_to_expand *all,
