@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:11:14 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/30 14:29:37 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/06 14:54:57 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	error_heredoc(char *tmp_content, int count, t_vars *vars)
 
 	exit_code = ft_itoa(count);
 	free(tmp_content);
-	ft_putstr_fd("bash: warning: here-document at line ", 2);
+	ft_putstr_fd("minishell: warning: here-document at line ", 2);
 	ft_putstr_fd(exit_code, 2);
 	ft_putstr_fd(" delimited by end-of-file (wanted `:')\n", 2);
 	vars->exit_code = 0;

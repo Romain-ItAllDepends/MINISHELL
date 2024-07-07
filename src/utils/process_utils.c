@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 21:22:31 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/06 14:40:40 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/06 16:15:45 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	free_child_process(t_vars *vars,
 	if (env)
 		ft_lstclear_env(env);
 	if (redirect)
-		ft_lstclear_final_redirection(&redirect);
+		ft_lstclear_final_redirection(&redirect, vars);
 	if (vars->cmd)
 		ft_free_tab_3d(vars);
 	if (vars)

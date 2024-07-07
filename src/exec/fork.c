@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:03:38 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/20 15:56:00 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:49:22 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	fork_processes(t_vars *vars, t_redirection **redirect, t_env **envp)
 		process_commands(vars, redirect, envp);
 	wait_process(vars);
 	ft_close_fd(vars);
-	ft_lstclear_final_redirection(redirect);
+	ft_lstclear_final_redirection(redirect, vars);
 	ft_free_tab_3d(vars);
 	return (0);
 }

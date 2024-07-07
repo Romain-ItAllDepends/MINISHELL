@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 14:59:39 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/06 11:38:06 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/06 16:15:26 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	prepare_heredoc(t_redirection *redirection,
 	redirection->file_heredoc = ft_itoa(
 			redirection->nb_heredoc);
 	redirection->file_heredoc = ft_strjoin_free_s2(
-			"/tmp/.heredoc", redirection->file_heredoc);
+			".heredoc", redirection->file_heredoc);
 	if (access(redirection->file_heredoc, F_OK) == 0)
 		unlink(redirection->file_heredoc);
 	redirection->infile_fd = open(redirection->file_heredoc,
@@ -64,7 +64,7 @@ static void	free_heredoc_child(t_env *env, t_vars *vars,
 	ft_lstclear_arguments(&tmp_command->arguments);
 	ft_lstclear_redirections(&tmp_command->redirections);
 	ft_lstclear_commands(&tmp_command);
-	ft_lstclear_final_redirection(&redirection);
+	ft_lstclear_final_redirection(&redirection, vars);
 	ft_free(vars->path);
 	free(vars);
 	exit(0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_two.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 09:23:44 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/25 14:05:59 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:50:36 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ static t_redirection_parsing	*unclose_quote(char *str,
 	char	quote;
 
 	i = 0;
+	quote = 0;
 	if (str && (str[i] == '\'' || str[i] == '"'))
 	{
 		quote = str[i];
-		i++;
+		if (str[i])
+			i++;
 	}
 	while (str && str[i] && str[i] != quote)
 	{

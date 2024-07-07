@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/06 11:42:18 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/06 16:17:53 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -536,7 +536,7 @@ void							ft_free_vars_input(
 									char *command_line, char **env);
 void							ft_free_tab_3d(t_vars *vars);
 void							ft_lstclear_final_redirection(
-									t_redirection **lst);
+									t_redirection **lst, t_vars *vars);
 void							error_export_1(char *str);
 void							error_export_2(char *str);
 
