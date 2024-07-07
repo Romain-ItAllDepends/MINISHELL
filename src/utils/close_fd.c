@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 21:30:05 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/22 17:59:57 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/06 15:43:44 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_error_redirect_infifle_fd(t_redirection *redirect)
 {
 	if (redirect->infile_fd == -1)
 	{
-		write (2, "bash: ", 6);
+		write (2, "minishell: ", 11);
 		ft_putstr_fd(redirect->name_infile, 2);
 		write (2, ": ", 2);
 		perror("");

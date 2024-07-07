@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_two.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 09:23:44 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/25 14:05:59 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:50:36 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+static t_redirection_parsing	*unclose_quote(char *str,
+	t_redirection_parsing *result)
+{
+	int		i;
+	char	quote;
+
+	i = 0;
+	quote = 0;
+	if (str && (str[i] == '\'' || str[i] == '"'))
+	{
+		quote = str[i];
+		if (str[i])
+			i++;
+	}
+	while (str && str[i] && str[i] != quote)
+	{
+		i++;
+		if (str[i] == quote)
+			result->did_succeed = TRUE;
+		else
+			result->did_succeed = FALSE;
+	}
+	if (result->did_succeed == FALSE)
+		ft_putstr_fd("Error: quotes are not closed !\n", 2);
+	return (result);
+}
 
 t_redirection_parsing	*parse_redirection(char *str)
 {
@@ -29,6 +56,9 @@ t_redirection_parsing	*parse_redirection(char *str)
 		str = skip_one_character(str);
 	str = skip_one_character(str);
 	str = skip_spaces(str);
+	redirection_result = unclose_quote(str, redirection_result);
+	if (redirection_result->did_succeed == FALSE)
+		return (redirection_result);
 	redirection_result->redirection->arg = ft_strjoin_file(
 			str);
 	str = ft_skip_arg(str, " \n\t|><");

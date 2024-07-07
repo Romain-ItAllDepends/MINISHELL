@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_redirection_utils.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:24:05 by tebandam          #+#    #+#             */
-/*   Updated: 2024/05/14 15:00:43 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/07 13:41:44 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-// Modif le message d'erreur avec le char actuel 
-// PS : c'est str[0]
 
 int	double_redirection(char *str)
 {

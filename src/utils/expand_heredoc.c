@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:16:27 by rgobet            #+#    #+#             */
-/*   Updated: 2024/06/29 20:35:25 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/07 10:51:48 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*expand_line(char *str, t_env *env, t_vars *vars)
 	if (!str)
 		return (str);
 	while_expand(tmp, &str, env, vars);
-	str[ft_strlen_with_expand(str, env, vars)] = 0;
+	str[size - 1] = 0;
 	free(tmp);
 	return (str);
 }

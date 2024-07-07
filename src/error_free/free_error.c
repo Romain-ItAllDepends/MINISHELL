@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:53:00 by rgobet            #+#    #+#             */
-/*   Updated: 2024/05/21 15:16:35 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:27:19 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ft_free(char **tab)
 	i = 0;
 	if (!tab)
 		return ;
-	if (!tab[0]) {
+	if (!tab[0])
+	{
 		free(tab);
 		return ;
 	}
@@ -52,11 +53,3 @@ void	ft_free_tab_3d(t_vars *vars)
 	}
 	free(vars->cmd);
 }
-
-// void	ft_free_vars_input(char *command_line, char **env)
-// {
-// 	ft_lstclear_env(&env);
-// 	free(vars->input);
-// 	free(vars);
-// 	return (0);
-// }

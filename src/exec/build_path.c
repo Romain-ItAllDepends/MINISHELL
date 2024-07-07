@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 07:55:39 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/29 09:05:11 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/06 15:41:45 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,14 @@ static int	check_and_open_dir(char *path)
 	DIR	*dir;
 
 	dir = opendir(path);
+	ft_putstr_fd(path, 2);
 	if (dir)
 	{
-		ft_putstr_fd(" Is a directory\n", 2);
+		ft_putstr_fd(": Is a directory\n", 2);
 		closedir(dir);
 		return (126);
 	}
-	ft_putstr_fd(" No such file or directory\n", 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 	return (126);
 }
 
@@ -66,7 +67,8 @@ static int	handle_path_with_slash(char **full_cmd)
 			return (check_and_open_dir(&full_cmd[0][2]));
 		else
 		{
-			ft_putstr_fd(" No such file or directory\n", 2);
+			ft_putstr_fd(full_cmd[0], 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
 			return (127);
 		}
 	}

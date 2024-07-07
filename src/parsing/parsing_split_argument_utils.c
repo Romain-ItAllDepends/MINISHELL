@@ -46,7 +46,7 @@ void	fill_no_quote_arg(t_char_list **tmp_char,
 	t_char_list	*arg;
 
 	arg = NULL;
-	if (tmp_char && (*tmp_char)->value != quote)
+	if (*tmp_char && (*tmp_char)->value != quote)
 	{
 		arg = lst_new_char_list();
 		if (!arg)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 15:07:02 by rgobet            #+#    #+#             */
-/*   Updated: 2024/06/29 20:39:59 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/06 15:26:17 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	outfile_setup(t_redirection *redirection,
 	}
 	redirection->outfile_fd = open(tmp_redirection->arg,
 			O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	if (redirection->name_outfile)
+		free(redirection->name_outfile);
+	redirection->name_outfile = NULL;
 	redirection->name_outfile = ft_strdup(tmp_redirection->arg);
 }
 
@@ -43,6 +46,9 @@ void	infile_setup(t_redirection *redirection,
 	}
 	redirection->infile_fd = open(
 			tmp_redirection->arg, O_RDONLY, 0644);
+	if (redirection->name_infile)
+		free(redirection->name_infile);
+	redirection->name_infile = NULL;
 	redirection->name_infile = ft_strdup(tmp_redirection->arg);
 }
 
@@ -60,6 +66,9 @@ void	append_setup(t_redirection *redirection,
 	}
 	redirection->outfile_fd = open(tmp_redirection->arg,
 			O_CREAT | O_APPEND | O_WRONLY, 0644);
+	if (redirection->name_outfile)
+		free(redirection->name_outfile);
+	redirection->name_outfile = NULL;
 	redirection->name_outfile = ft_strdup(tmp_redirection->arg);
 }
 

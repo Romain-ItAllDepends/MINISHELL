@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:54:32 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/25 16:28:40 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:16:00 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	manage_redirection(t_redirection **result,
 	where_are_heredoc(result, heredoc);
 }
 
-void	stock_redirection(t_command_to_expand *list, t_env *env,
+void	stock_redirection(t_command_line_parsing *list, t_env *env,
 	t_vars *vars, t_redirection **result)
 {
 	t_command_to_expand		*tmp_command;
@@ -70,7 +70,7 @@ void	stock_redirection(t_command_to_expand *list, t_env *env,
 	t_bool					heredoc;
 	int						nb_hd;
 
-	tmp_command = list;
+	tmp_command = list->commands;
 	init (&heredoc, &nb_hd, result, &redirection);
 	while (tmp_command)
 	{
@@ -82,11 +82,11 @@ void	stock_redirection(t_command_to_expand *list, t_env *env,
 			heredoc = global_redirections(redirection,
 					tmp_redirection, vars);
 			if (heredoc == TRUE)
-				complete_heredoc(redirection, tmp_command, env, vars);
+				complete_heredoc(redirection, list, env, vars);
 			tmp_redirection = tmp_redirection->next;
 		}
 		manage_redirection(result, redirection, heredoc);
 		tmp_command = tmp_command->next;
 	}
-	security_clear(&list);
+	security_clear(&list->commands);
 }

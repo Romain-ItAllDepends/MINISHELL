@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:01:08 by rgobet            #+#    #+#             */
-/*   Updated: 2024/06/25 16:31:32 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/06 16:14:52 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	close_file_descriptors(t_redirection *node)
 	}
 }
 
-static void	free_node_resources(t_redirection *node)
+static void	free_node_resources(t_redirection *node, t_vars *vars)
 {
 	if (node->name_outfile)
 		free(node->name_outfile);
 	if (node->name_infile)
 		free(node->name_infile);
-	if (node->e_position == HERE)
+	if (node->e_position == HERE && vars->cmd_index != 0)
 		unlink(node->file_heredoc);
 	if (node->limiter)
 		free(node->limiter);
@@ -44,16 +44,16 @@ static void	free_node_resources(t_redirection *node)
 		free(node->file_heredoc);
 }
 
-static void	clear_node(t_redirection *node)
+static void	clear_node(t_redirection *node, t_vars *vars)
 {
 	if (!node)
 		return ;
 	close_file_descriptors(node);
-	free_node_resources(node);
+	free_node_resources(node, vars);
 	free(node);
 }
 
-void	ft_lstclear_final_redirection(t_redirection **lst)
+void	ft_lstclear_final_redirection(t_redirection **lst, t_vars *vars)
 {
 	t_redirection	*tmp;
 
@@ -63,6 +63,6 @@ void	ft_lstclear_final_redirection(t_redirection **lst)
 	{
 		tmp = *lst;
 		*lst = (*lst)->next;
-		clear_node(tmp);
+		clear_node(tmp, vars);
 	}
 }

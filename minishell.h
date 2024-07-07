@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/01 12:00:53 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:41:14 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,17 +215,19 @@ void							ft_exit_message_argument_required(
 									char *command);
 int								ft_isdigit(int c);
 void							process_commands(t_vars *vars,
-									t_redirection **redirect, t_env **envp);
+									t_redirection **redirect,
+									t_env **envp,
+									t_command_line_parsing *tmp_free);
 int								choice_pipe_setup(t_vars *vars);
 int								setup_pipe(int *pipe_fd);
 void							initialize_vars(t_vars *vars);
 int								wait_process(t_vars *vars);
-int								process(t_vars *vars,
-									t_redirection *redirect, t_env **env);
+int								process(t_vars *vars, t_redirection *redirect,
+									t_env **env, t_command_line_parsing *tmp);
 void							handle_pipe_closing(t_vars *vars);
 int								child_process(t_vars *vars,
-									t_redirection *redirect,
-									char **actual_cmd, t_env **env);
+									t_redirection *redirect, t_env **env,
+									t_command_line_parsing *tmp);
 void							error_close_files(t_redirection *redirect);
 void							ft_close_fd(t_vars *vars);
 t_bool							is_builtins_exec(t_vars *vars);
@@ -536,7 +538,7 @@ void							ft_free_vars_input(
 									char *command_line, char **env);
 void							ft_free_tab_3d(t_vars *vars);
 void							ft_lstclear_final_redirection(
-									t_redirection **lst);
+									t_redirection **lst, t_vars *vars);
 void							error_export_1(char *str);
 void							error_export_2(char *str);
 
@@ -562,11 +564,12 @@ int								build_path(char **path,
 									char **is_valid_cmd, char **full_cmd);
 void							update_full_cmd(char ***full_cmd,
 									char *is_valid_cmd);
-int								verif_fill_command_paths(
-									t_vars *vars, t_command_to_expand *tmp,
+int								verif_fill_command_paths(t_vars *vars,
+									t_command_to_expand *tmp,
 									t_env *env);
 int								fork_processes(t_vars *vars,
-									t_redirection **redirect, t_env **envp);
+									t_redirection **redirect, t_env **envp,
+									t_command_line_parsing *tmp);
 void							capture_and_redirection(
 									char *tab, char *tmp, t_vars *vars);
 void							open_fd_infile(t_vars *vars);
@@ -587,9 +590,9 @@ char							*get_var_name(char *str);
 t_bool							is_builtins_exec(t_vars *vars);
 t_bool							is_builtins_parsing(char **str);
 t_redirection_to_expand			*is_last(t_redirection_to_expand *tmp);
-void							stock_redirection(t_command_to_expand *list,
-									t_env *env, t_vars *vars,
-									t_redirection **redirection);
+void							stock_redirection(
+									t_command_line_parsing *list, t_env *env,
+									t_vars *vars, t_redirection **result);
 char							*ft_strjoin_mod(char *s1, char *s2);
 t_redirection					*ft_lstlast_redirection(t_redirection *lst);
 t_redirection_to_expand			*get_redirection_list(
@@ -603,10 +606,10 @@ void							where_are_heredoc(t_redirection **list,
 void							prepare_heredoc(t_redirection *redirection,
 									t_redirection_to_expand *tmp_redirection);
 void							heredoc_setup(t_redirection *redirection,
-									t_command_to_expand *tmp_command,
+									t_command_line_parsing *tmp_command,
 									t_env *env, t_vars *vars);
 void							complete_heredoc(t_redirection *redirection,
-									t_command_to_expand *tmp_command,
+									t_command_line_parsing *tmp_command,
 									t_env *env, t_vars *vars);
 void							outfile_setup(t_redirection *redirection,
 									t_redirection_to_expand *tmp_redirection);
@@ -639,5 +642,16 @@ void							refresh_index(char *str, int *i,
 t_bool							need_to_be_expand_hd(char *str, t_env *env);
 int								ft_strlen_with_expand(char *str, t_env *env,
 									t_vars *vars);
+void							rest_argument(t_char_list **tmp_char,
+									t_char_list **splitted_chars);
+int								set_last_point(t_argument **tmp,
+									t_char_list **tmp_char);
+void							set_var(t_argument *tmp,
+									t_char_list **tmp_char);
+void							fill_expanded_arg(t_char_list **tmp_char,
+									t_char_list **splitted_chars);
+void							fill_not_expand_arg(t_char_list **tmp_char,
+									t_char_list **splitted_chars,
+									t_bool *in_quote, char *quote);
 
 #endif

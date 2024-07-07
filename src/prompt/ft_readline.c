@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:20:34 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/05 14:11:42 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/07 11:28:24 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static char	*process_successful_command(t_command_line_parsing
 *parsing_result, t_env **env, char *command_line, t_vars *vars)
 {
 	ft_cmd_manager(env, parsing_result, vars);
-	if (parsing_result->commands
+	if (parsing_result && parsing_result->commands
 		&& parsing_result->commands->redirections)
 		ft_lstclear_redirections(&parsing_result->commands->redirections);
-	if (parsing_result->commands
+	if (parsing_result && parsing_result->commands
 		&& parsing_result->commands->arguments)
 		ft_lstclear_arguments(&parsing_result->commands->arguments);
-	if (parsing_result->commands)
+	if (parsing_result && parsing_result->commands)
 		ft_lstclear_commands(&parsing_result->commands);
 	if (parsing_result)
 		free(parsing_result);
@@ -55,6 +55,13 @@ static char	*verif_command_line(char *command_line
 	return (command_line);
 }
 
+static void	free_exit(t_env **env, t_vars *vars)
+{
+	ft_lstclear_env(env);
+	free(vars);
+	exit(vars->exit_code);
+}
+
 int	ft_readline(t_env **env, t_vars *vars)
 {
 	char							*command_line;
@@ -63,11 +70,7 @@ int	ft_readline(t_env **env, t_vars *vars)
 	while (1)
 	{
 		if (vars->exit == TRUE)
-		{
-			ft_lstclear_env(env);
-			free(vars);
-			exit(vars->exit_code);
-		}
+			free_exit(env, vars);
 		if (command_line)
 		{
 			free(command_line);
