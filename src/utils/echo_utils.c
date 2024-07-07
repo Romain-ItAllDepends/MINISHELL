@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:33:20 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/06 11:35:00 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 17:43:18 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,16 @@ void	print_not_option_n(char **command)
 void	print_with_option_n_fd(char **command, int fd)
 {
 	int	i;
-	int	j;
 
-	i = 2;
-	j = 0;
+	i = 1;
 	while (command[i])
 	{
-		while (command[i][j])
+		if (command[i] && check_argument(command[i]) == 0)
 		{
-			if (command[i][j] != 'n' && command[i][j] != '-')
-			{
-				while (command[i])
-				{
-					ft_putstr_fd(command[i], fd);
-					i++;
-				}
-				return ;
-			}
-			j++;
+			ft_putstr_fd(command[i], fd);
+			if (command[i + 1] != NULL)
+				write (2, " ", 1);
 		}
-		j = 0;
 		i++;
 	}
 }

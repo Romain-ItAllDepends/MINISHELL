@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/07 13:41:14 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/07 17:43:48 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -491,7 +491,7 @@ void							print_not_option_n(char **command);
 void							print_with_option_n_fd(char **command, int fd);
 void							print_not_option_n_fd(char **command, int fd);
 int								has_invalid_argument(char *arg, char *next_arg);
-
+int								check_argument(char *command);
 /*
 * Chain list
 */
