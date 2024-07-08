@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 05:44:21 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/01 12:04:27 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/08 11:25:47 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,18 @@ void	hide_and_update_env_var(t_env *tmp_env, char *cmd)
 
 void	update_env_var(t_env *tmp_env, char *cmd, char *value)
 {
-	free(tmp_env->value);
 	if (value == NULL || value[0] == 0)
 		tmp_env->hide = TRUE;
 	else
 		tmp_env->hide = FALSE;
-	if (tmp_env->value)
+	if (tmp_env->value && (ft_strcmp(tmp_env->value, value) != 0
+		&& ft_strlen(value) != 0))
+	{
 		free(tmp_env->value);
-	tmp_env->value = copy(value);
-	free(tmp_env->full_path);
-	tmp_env->full_path = copy(cmd);
+		tmp_env->value = copy(value);
+		free(tmp_env->full_path);
+		tmp_env->full_path = copy(cmd);
+	}
 }
 
 static int	verif(int i, int len_mid, t_bool append, char *str)

@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 21:22:31 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/07 15:19:46 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/08 12:10:57 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ static void	is_dir(t_vars *vars, t_redirection *redirect
 	if (access(actual_cmd[0], X_OK) == -1)
 	{
 		free_child_process(vars, redirect, env, tmp);
-		vars->exit_code = 127;
+		exit(127);
 	}
-	else if (actual_cmd[0][0] == '.' && actual_cmd[0][1] == '/')
+	if (actual_cmd[0][0] == '.' && actual_cmd[0][1] == '/')
 	{
 		dir = opendir(&actual_cmd[0][2]);
 		if (dir)
 		{
 			free_child_process(vars, redirect, env, tmp);
 			closedir(dir);
-			vars->exit_code = 126;
+			exit(126);
 		}
 	}
 }
@@ -93,8 +93,6 @@ int	child_process(t_vars *vars, t_redirection *redirect
 	ft_close_fd(vars);
 	verif_or_builtins(vars, redirect, env, tmp);
 	execve(actual_cmd[0], actual_cmd, vars->env);
-	ft_close_fd(vars);
-	error_close_files(redirect);
 	exit(1);
 }
 

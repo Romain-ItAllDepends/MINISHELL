@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:24:05 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/01 12:03:40 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/08 11:25:41 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static void	handle_export_status_0(t_env **env, t_env *tmp_env,
 	}
 	else
 		update_env_var(tmp_env, cmd, value);
+	if (value)
+		free(value);
 }
 
 static void	handle_export_status_2(t_env **env,

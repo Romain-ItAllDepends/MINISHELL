@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_expand_in_argument.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:20:40 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/30 15:20:27 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:56:17 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ static void	*simple_arg(char *argument, int *i, t_char_list **chars)
 	tmp = NULL;
 	while (argument[*i])
 	{
-		if (argument[*i] == '$')
+		if ((*i > 0 && argument[*i - 1] == '"' && argument[*i] == '$')
+			|| (i == 0 && argument[*i] == '$'))
 			break ;
 		tmp = lst_new_char_list();
 		if (!tmp)

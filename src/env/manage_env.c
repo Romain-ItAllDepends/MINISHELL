@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 20:48:43 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/01 10:56:39 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/08 11:26:25 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,5 @@ void	add_new_env_var(t_env **env, char *cmd,
 	tmp_env->value = copy(value);
 	tmp_env->next = NULL;
 	ft_lstadd_back_env(env, tmp_env);
+	free(value);
 }

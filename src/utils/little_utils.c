@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:27:46 by rgobet            #+#    #+#             */
-/*   Updated: 2024/06/25 15:32:29 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/08 11:50:28 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	refresh_index(char *str, int *i, int *count, int j)
 	{
 		*i += 1;
 		*count += 1;
+		if (*i > 0 && str[*i - 2] == '$')
+			*count += 1;
 	}
 	*count += j;
 }
@@ -60,7 +62,7 @@ void	init_expand(int *i, int *j, int *t, char **var_name)
 
 void	increment_index(int *i, int *t, char *tmp)
 {
-	if (tmp[*t] && tmp[*t] != '$')
+	if ((tmp[*t] && tmp[*t] != '$') || *t == 0)
 		*t += 1;
 	*i += 1;
 }

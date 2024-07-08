@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 21:30:05 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/06 15:43:44 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/08 12:02:38 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ int	check_error_redirect_outfile_fd(t_redirection *redirect)
 
 void	error_close_files(t_redirection *redirect)
 {
-	if (redirect->infile_fd != -1)
+	if (redirect && redirect->infile_fd != -1)
 	{
 		close(redirect->infile_fd);
 		redirect->infile_fd = -1;
 	}
-	if (redirect->outfile_fd != -1)
+	if (redirect && redirect->outfile_fd != -1)
 	{
 		close(redirect->outfile_fd);
 		redirect->outfile_fd = -1;
