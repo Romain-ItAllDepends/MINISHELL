@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/07 17:43:48 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:31:08 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,10 +486,10 @@ int								ft_pwd(t_vars *vars, t_redirection *redirect);
 int								unset(t_env **env, char **names);
 int								ft_exit(char **command);
 int								is_there_an_option_n(char **command);
-void							print_with_option_n(char **command);
-void							print_not_option_n(char **command);
-void							print_with_option_n_fd(char **command, int fd);
-void							print_not_option_n_fd(char **command, int fd);
+int								print_value_exit_status(char **command);
+void							echo_in_fd(char **command, int fd, int i);
+void							echo_not_fd(char **command, int i);
+int								ft_count_char(char *str, char to_find);
 int								has_invalid_argument(char *arg, char *next_arg);
 int								check_argument(char *command);
 /*
