@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:16:27 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/08 11:33:59 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/08 13:25:41 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	expand(char *var_name, t_env *env, int i, char **str)
 	}
 	else
 	{
-		while(var_name && var_name[j])
+		while (var_name && var_name[j])
 		{
 			str[0][i + j] = var_name[j];
 			j++;
