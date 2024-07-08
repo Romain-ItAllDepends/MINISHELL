@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:11:14 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/07 16:03:39 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/08 06:54:45 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ void	ft_heredoc(t_redirection *redirection,
 		if (all->e_type == REDIRECTION_HEREDOC)
 		{
 			count = 0;
-			while ((ft_strcmp(tmp, all->arg) != 0 || count == 0) && g_sig != 130)
+			while ((ft_strcmp(tmp, all->arg) != 0
+					|| count == 0) && g_sig != 130)
 			{
 				if (redirection->e_position == HERE && is_last(all) == all)
 					tmp = last_heredoc(tmp, redirection, env, vars);
