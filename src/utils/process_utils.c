@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 21:22:31 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/08 12:10:57 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/09 09:05:39 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	free_child_process(t_vars *vars, t_redirection *redirect,
 	if (env)
 		ft_lstclear_env(env);
 	if (redirect)
-		ft_lstclear_final_redirection(&redirect, vars);
+		ft_lstclear_final_redirection(vars->redirection, vars);
 	if (vars->cmd)
 		ft_free_tab_3d(vars);
 	if (vars)
@@ -92,6 +92,7 @@ int	child_process(t_vars *vars, t_redirection *redirect
 	ft_flow_redirection(vars, redirect);
 	ft_close_fd(vars);
 	verif_or_builtins(vars, redirect, env, tmp);
+	ft_lstclear_final_redirection(vars->redirection, vars);
 	execve(actual_cmd[0], actual_cmd, vars->env);
 	exit(1);
 }

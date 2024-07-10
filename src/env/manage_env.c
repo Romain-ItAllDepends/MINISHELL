@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 20:48:43 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/08 11:26:25 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/09 15:05:51 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	add_modified_env_var(t_env **env, char *cmd,
 	tmp_env = lst_search_env(var_name, *env);
 	if (!tmp_env)
 		tmp_env = ft_lstnew_env();
-	if (value == NULL || value[0] == 0)
+	if (!cmd)
 		tmp_env->hide = TRUE;
 	else
 		tmp_env->hide = FALSE;
@@ -99,13 +99,16 @@ void	add_new_env_var(t_env **env, char *cmd,
 
 	value = make_var(cmd);
 	tmp_env = ft_lstnew_env();
-	if (value == NULL || value[0] == 0)
+	if (!cmd)
 		tmp_env->hide = TRUE;
 	else
 		tmp_env->hide = hide;
 	tmp_env->full_path = copy(cmd);
 	tmp_env->var_name = copy(var_name);
-	tmp_env->value = copy(value);
+	if (value == NULL || value[0] == '\0')
+		tmp_env->value = NULL;
+	else
+		tmp_env->value = copy(value);
 	tmp_env->next = NULL;
 	ft_lstadd_back_env(env, tmp_env);
 	free(value);

@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 12:43:39 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/06 15:00:42 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/10 08:07:59 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ int	cmd_selector(t_env **env, char **command_line,
 		return (0);
 	if (manage_env(command_line, &vars, redirect) == 0)
 		return (0);
-	if (vars->nb_cmd == 1 && manage_exit(command_line, &vars) == 0)
+	if (vars->nb_cmd == 1 && ft_exit(command_line, vars))
 	{
-		vars->exit = TRUE;
 		return (0);
 	}
 	return (1);

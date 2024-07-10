@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 20:20:15 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/07 13:23:17 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/09 08:47:16 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	initialize_vars(t_vars *vars)
 	vars->pipe_2[0] = -1;
 	vars->pipe_2[1] = -1;
 	vars->last_child = 0;
-	vars->child = 0;
+	vars->child = -1;
 }
 
 int	setup_pipe(int *pipe_fd)

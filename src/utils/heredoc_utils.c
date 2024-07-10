@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 14:59:39 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/07 15:30:27 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/10 09:12:02 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	free_heredoc_child(t_env *env, t_vars *vars,
 	ft_lstclear_redirections(&tmp_command->commands->redirections);
 	ft_lstclear_commands(&tmp_command->commands);
 	free(tmp_command);
+	ft_lstclear_final_redirection(vars->redirection, vars);
 	ft_lstclear_final_redirection(&redirection, vars);
 	ft_free(vars->path);
 	free(vars);
@@ -95,10 +96,6 @@ void	heredoc_setup(t_redirection *redirection,
 		else
 			vars->exit_code = WEXITSTATUS(wstatus);
 		if (vars->exit_code == 130)
-			g_sig = SIGINT;
+			g_sig = SIGINT + 128;
 	}
-	close(redirection->infile_fd);
-	redirection->infile_fd = -1;
-	redirection->infile_fd = open(
-			redirection->file_heredoc, O_RDONLY, 0644);
 }

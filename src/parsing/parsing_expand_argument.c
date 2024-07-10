@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_expand_argument.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:23:23 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/30 15:40:57 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:38:29 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	expand_arg(char *argument, t_env *env, t_char_list **chars, int i)
 	var_name = NULL;
 	var_name = get_var_name((char *)&argument[i]);
 	var = lst_search_env(var_name, env);
-	while (var->value[s])
+	while (var && var->value && var->value[s])
 	{
 		tmp = lst_new_char_list();
 		if (!tmp)

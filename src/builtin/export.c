@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:24:05 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/08 11:25:41 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/09 15:31:01 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,15 @@ static char	*make_var_name(char *str)
 
 static void	free_full_path(t_env *tmp_env, char *cmd, char *value)
 {
-	free(tmp_env->full_path);
-	tmp_env->full_path = remove_plus(cmd);
-	tmp_env->full_path = ft_strjoin_mod(tmp_env->full_path, value);
+	if(tmp_env && tmp_env->full_path
+		&& ft_strchr(tmp_env->full_path, '=') == 0)
+	{
+		free(tmp_env->full_path);
+		tmp_env->full_path = remove_plus(cmd);
+		tmp_env->hide = FALSE;
+	}
+	else
+		tmp_env->full_path = ft_strjoin_mod(tmp_env->full_path, value);
 	tmp_env->value = ft_strjoin_mod(tmp_env->value, value);
 }
 

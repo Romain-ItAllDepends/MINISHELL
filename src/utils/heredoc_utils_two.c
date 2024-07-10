@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:40:40 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/07 16:01:42 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/09 09:13:39 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@ void	complete_heredoc(t_redirection *redirection,
 	t_command_line_parsing *tmp_command, t_env *env, t_vars *vars)
 {
 	if (redirection->nb_heredoc && redirection->infile_fd != -1)
+	{
 		heredoc_setup(redirection, tmp_command, env, vars);
+		close(redirection->infile_fd);
+		redirection->infile_fd = -1;
+		redirection->infile_fd = open(
+				redirection->file_heredoc, O_RDONLY, 0644);
+	}
 	else
 		perror("Error opening heredoc files");
 }

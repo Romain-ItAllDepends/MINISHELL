@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:21:16 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/06 15:41:18 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/09 08:42:43 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	ft_cd(char **command, t_env **env)
 
 	current = *env;
 	if (check_error_ft_cd(command) == 1)
+		return (1);
+	if (check_error_ft_cd_home(command) == 1)
 		return (1);
 	current = find_env_by_var_name(*env, "OLDPWD");
 	path_current = getcwd(NULL, 0);

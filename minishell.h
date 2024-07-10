@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/08 15:31:08 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/10 08:06:33 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,50 @@ typedef enum s_bool
 
 extern int	g_sig;
 
+/*
+* Expand redirections
+*/
+
+typedef struct s_redirection
+{
+	int						infile_fd;
+	int						outfile_fd;
+	int						nb_heredoc;
+	char					*file_heredoc;
+	char					*limiter;
+	char					*name_infile;
+	char					*name_outfile;	
+	enum
+	{
+		HERE,
+		COMING,
+		NONE
+	}	e_position;
+	t_bool					ambiguous;
+	struct s_redirection	*next;
+}	t_redirection;
+
+/*
+* Data for all the minishell
+*/
+
 typedef struct s_vars
 {
-	pid_t	child;
-	pid_t	last_child;
-	t_bool	exit;
-	int		nb_cmd;
-	int		cmd_index;
-	char	**path;
-	char	***cmd;
-	char	**full_cmd;
-	int		pipe_1[2];
-	int		pipe_2[2];
-	char	**env;
-	int		exit_code;
-	int		exit_code_signal;
-	int		*pids;
+	pid_t			child;
+	pid_t			last_child;
+	t_redirection	**redirection;
+	t_bool			exit;
+	int				nb_cmd;
+	int				cmd_index;
+	char			**path;
+	char			***cmd;
+	char			**full_cmd;
+	int				pipe_1[2];
+	int				pipe_2[2];
+	char			**env;
+	int				exit_code;
+	int				exit_code_signal;
+	int				*pids;
 }	t_vars;
 
 /*
@@ -157,29 +185,6 @@ typedef struct s_argument
 
 	struct s_argument	*next;	
 }	t_argument;
-
-/*
-* Expand redirections
-*/
-
-typedef struct s_redirection
-{
-	int						infile_fd;
-	int						outfile_fd;
-	int						nb_heredoc;
-	char					*file_heredoc;
-	char					*limiter;
-	char					*name_infile;
-	char					*name_outfile;	
-	enum
-	{
-		HERE,
-		COMING,
-		NONE
-	}	e_position;
-	t_bool					ambiguous;
-	struct s_redirection	*next;
-}	t_redirection;
 
 /*
 * Utilitaries
@@ -385,7 +390,7 @@ int								manage_export(char **command_line,
 									t_vars **vars, t_env **env);
 int								manage_env(char **command_line,
 									t_vars **vars, t_redirection *redirect);
-int								manage_exit(char **command_line, t_vars **vars);
+// int								manage_exit(char **command_line, t_vars **vars);
 int								cmd_selector(t_env **env,
 									char **command_line, t_vars *vars,
 									t_redirection *redirect);
@@ -484,13 +489,12 @@ int								ft_echo(char **command,
 									t_vars *vars, t_redirection *redirect);
 int								ft_pwd(t_vars *vars, t_redirection *redirect);
 int								unset(t_env **env, char **names);
-int								ft_exit(char **command);
+int								ft_exit(char **command_line, t_vars *vars);
 int								is_there_an_option_n(char **command);
 int								print_value_exit_status(char **command);
 void							echo_in_fd(char **command, int fd, int i);
 void							echo_not_fd(char **command, int i);
 int								ft_count_char(char *str, char to_find);
-int								has_invalid_argument(char *arg, char *next_arg);
 int								check_argument(char *command);
 /*
 * Chain list

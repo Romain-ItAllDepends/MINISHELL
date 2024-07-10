@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:20:34 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/07 15:06:25 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/10 09:10:55 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ int	ft_readline(t_env **env, t_vars *vars)
 	command_line = NULL;
 	while (1)
 	{
+		printf("%i\n", g_sig);
+		if (g_sig != 0)
+			vars->exit_code = g_sig;
+		g_sig = 0;
 		if (vars->exit == TRUE)
 			free_exit(env, vars);
 		if (command_line)

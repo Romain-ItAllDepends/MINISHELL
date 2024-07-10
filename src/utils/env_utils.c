@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 18:39:25 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/29 11:18:22 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/09 14:33:25 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ char	**env_to_char_export(t_env *env)
 	{
 		tmp[i] = setup_full_path(env->full_path);
 		env = env->next;
+		if (env && env->var_name[0] == '_')
+			env = env->next;
 		i++;
 	}
 	tmp[i] = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:07:22 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/29 08:52:55 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:29:43 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	ft_sigquit(int signal)
 
 void	ft_ctrl_c(int signal)
 {
-	g_sig = signal;
+	(void)signal;
+	g_sig = 130;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);

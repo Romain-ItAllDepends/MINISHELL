@@ -6,18 +6,11 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:36:51 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/08 13:22:48 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/10 08:21:10 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
 
 static long	ft_atol(const char *nptr)
 {
@@ -48,52 +41,81 @@ static long	ft_atol(const char *nptr)
 	return (minus * nb);
 }
 
-int	has_invalid_argument(char *arg, char *next_arg)
+static int	check_numeric_argument(char **command_line, t_vars *vars)
+{
+	if (command_line && command_line[0] && command_line[1]
+		&& ft_strncmp(command_line[1], "0", 2) != 0
+		&& ft_strncmp(command_line[1], "-9223372036854775808", 21) != 0
+		&& ft_atol(command_line[1]) == 0)
+	{
+		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
+		clear_history();
+		vars->exit_code = 2;
+		return (0);
+	}
+	return (1);
+}
+
+static int	has_invalid_argument(char **command_line, t_vars *vars)
 {
 	int	i;
 
 	i = 0;
-	if (ft_isdigit(arg[i]) == 1 && next_arg != NULL)
+	if (!check_numeric_argument(command_line, vars))
+		return (0);
+	while (command_line && command_line[0]
+		&& command_line[1] && command_line[1][i])
 	{
-		ft_putstr_fd(" too many arguments\n", 2);
-		return (1);
-	}
-	while (arg[i])
-	{
-		if (i == 0 && (arg[i] == '-' || arg[i] == '+'))
+		if (i == 0 && (command_line[1][i] == '-'
+			|| command_line[1][i] == '+'))
 			i++;
-		if (!ft_isdigit(arg[i]))
+		if (!ft_isdigit(command_line[1][i])
+			|| ft_atol(command_line[1]) > 9223372036854775807)
 		{
-			ft_putstr_fd(" numeric argument required\n", 2);
+			ft_putstr_fd(": numeric argument required\n", 2);
 			clear_history();
-			return (2);
+			vars->exit_code = 2;
+			return (0);
 		}
 		i++;
 	}
-	if (ft_atol(arg) == 0)
-		ft_exit_message_argument_required(arg);
-	return (0);
+	return (1);
 }
 
-int	ft_exit(char **command)
+static void	handle_exit_arguments(char **command_line, int i, t_vars *vars)
 {
-	unsigned char	tmp;
-	int				i;
-
-	i = 0;
-	if (command[1] == NULL || command[1][0] == '\0'
-		|| ft_strncmp(command[1], "-9223372036854775808", 21) == 0)
-		tmp = 0;
-	else
+	if (i > 2)
 	{
-		if (has_invalid_argument(command[1], command[2]))
-			return (2);
-		if (ft_atol(command[1]) >= 0)
-			tmp = ft_atol(command[1]) % 256;
-		else
-			tmp = 256 - (-1 * ft_atol(command[1]) % 256);
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		vars->exit_code = 1;
 	}
-	clear_history();
-	printf("exit\n");
-	return (tmp);
+	else if (i > 1 && ft_atol(command_line[1]) >= 0)
+		vars->exit_code = ft_atol(command_line[1]) % 256;
+	else if (i > 1)
+		vars->exit_code = 256 - (-1 * ft_atol(command_line[1]) % 256);
+}
+
+int	ft_exit(char **command_line, t_vars *vars)
+{
+	int	i;
+
+	if (!command_line || !command_line[0])
+		return (1);
+	if (ft_strcmp(command_line[0], "exit") != 0
+		&& ft_strlen(command_line[0]) != 0)
+		return (1);
+	ft_putstr_fd("exit\n", 2);
+	if (!has_invalid_argument(command_line, vars))
+	{
+		vars->exit = TRUE;
+		return (1);
+	}
+	i = 0;
+	while (command_line[i])
+		i++;
+	handle_exit_arguments(command_line, i, vars);
+	if (i > 2)
+		return (1);
+	vars->exit = TRUE;
+	return (1);
 }

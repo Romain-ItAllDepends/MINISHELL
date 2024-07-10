@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 15:06:26 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/20 10:33:47 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:11:52 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	wait_pids(t_vars *vars)
 			else
 				vars->exit_code = WEXITSTATUS(status);
 			if (vars->exit_code == 130)
-				g_sig = SIGINT;
+				g_sig = SIGINT + 128;
 			i++;
 		}
 		if (vars->exit_code == 131)

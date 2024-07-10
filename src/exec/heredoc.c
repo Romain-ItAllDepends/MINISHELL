@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:11:14 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/08 06:54:45 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/10 08:31:02 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	error_heredoc(char *tmp_content, int count, t_vars *vars)
 	free(tmp_content);
 	ft_putstr_fd("minishell: warning: here-document at line ", 2);
 	ft_putstr_fd(exit_code, 2);
-	ft_putstr_fd(" delimited by end-of-file (wanted `:')\n", 2);
+	ft_putstr_fd(" delimited by end-of-file\n", 2);
 	vars->exit_code = 0;
 	free(exit_code);
 }

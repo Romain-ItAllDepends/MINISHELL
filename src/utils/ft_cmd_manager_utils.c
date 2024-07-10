@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_manager_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 06:02:12 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/23 08:39:11 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/10 07:58:32 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	cleanup_vars_path(t_vars *vars)
 {
-	if (vars->path)
+	if (vars && vars->path)
 	{
 		ft_free(vars->path);
 		vars->path = NULL;

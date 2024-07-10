@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 14:16:48 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/08 14:59:15 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/09 06:54:41 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_echo(char **command, t_vars *vars, t_redirection *redirect)
 	no_newline = 0;
 	if (!handle_initial_checks(command, vars))
 		return (0);
-	while (command[i][0] == '-'
+	while (command && command[i] && command[i][0] == '-'
 		&& ft_count_char(command[i], 'n')
 		== ft_strlen(command[i]) - 1)
 	{
