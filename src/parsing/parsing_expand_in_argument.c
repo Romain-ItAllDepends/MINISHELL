@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_expand_in_argument.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:20:40 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/08 15:32:16 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/10 10:50:12 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ static void	*simple_arg(char *argument, int *i, t_char_list **chars)
 		if ((*i > 0 && argument[*i - 1] != '\'' && argument[*i] == '$')
 			|| (i == 0 && argument[*i] == '$'))
 			break ;
+		if (argument[*i] == '$' 
+			&& is_not_in_double_quote(argument, *i) == TRUE)
+			break ;
 		tmp = lst_new_char_list();
 		if (!tmp)
 			return (NULL);
@@ -129,7 +132,7 @@ t_argument	*ft_expand_vars_in_argument(
 		else if (argument[i] == '"'
 			|| (is_in_quote((char *)argument, i) == TRUE && argument[i] != '$'))
 			expand_argument_double_quote(argument, &i,
-				is_in_quote((char *)argument, i), &arg->chars);
+				is_not_in_double_quote((char *)argument, i), &arg->chars);
 		else if (argument[i] == '$')
 			i += expand_argument((char *)&argument[i],
 					env, vars, &arg->chars);

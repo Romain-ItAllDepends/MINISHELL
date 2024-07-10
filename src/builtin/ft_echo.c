@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 14:16:48 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/09 06:54:41 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/10 09:59:24 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ int	ft_echo(char **command, t_vars *vars, t_redirection *redirect)
 		i++;
 		no_newline = 1;
 	}
-	if (vars->nb_cmd == 1)
+	if (vars->nb_cmd == 1 && redirect->outfile_fd == STDOUT_FILENO)
 		echo_not_fd(command, i);
 	else
 		echo_in_fd(command, redirect->outfile_fd, i);
 	if (!no_newline)
-		write (1, "\n", 1);
+		write (redirect->outfile_fd, "\n", 1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:37:00 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/20 13:06:59 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:54:14 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_pwd(t_vars *vars, t_redirection *redirect)
 	{
 		if (getcwd(buf, sizeof(buf)) == NULL)
 		{
-			ft_putstr_fd("An error has been detected", 2);
+			ft_putstr_fd("An error has been detected\n", 2);
 			return (1);
 		}
 		ft_putstr_fd(buf, redirect->outfile_fd);
@@ -30,7 +30,7 @@ int	ft_pwd(t_vars *vars, t_redirection *redirect)
 	{
 		if (getcwd(buf, sizeof(buf)) == NULL)
 		{
-			ft_putstr_fd("An error has been detected", 2);
+			ft_putstr_fd("An error has been detected\n", 2);
 			return (1);
 		}
 		ft_putstr_fd(buf, 1);

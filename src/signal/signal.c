@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:07:22 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/09 14:29:43 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/10 11:09:19 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	ft_sigint(int signal)
 static void	ft_sigquit(int signal)
 {
 	(void)signal;
-	printf("Quit (core dumped)\n");
+	g_sig = 131;
+	printf("Quit\n");
 }
 
 void	ft_ctrl_c(int signal)
