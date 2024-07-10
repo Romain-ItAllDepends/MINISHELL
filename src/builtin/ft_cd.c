@@ -59,15 +59,15 @@ t_env	*find_env_by_var_name(t_env *env, const char *var_name)
 	return (NULL);
 }
 
-char	*ft_chdid_and_verif(char *stock)
+int ft_chdid_and_verif(char *stock)
 {
 	if (chdir(stock) == -1)
 	{
 		ft_putstr_fd(stock, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		return (stock);
+		return (1);
 	}
-	return (stock);
+	return (0);
 }
 
 int	ft_cd(char **command, t_env **env)
@@ -89,8 +89,8 @@ int	ft_cd(char **command, t_env **env)
 	current = *env;
 	current = find_env_by_var_name(*env, "PWD");
 	stock = command[1];
-	if (command[1])
-		stock = ft_chdid_and_verif(stock);
+	if (ft_chdid_and_verif(stock) == 1)
+		return (2);
 	free(current->full_path);
 	path_current = getcwd(NULL, 0);
 	current->full_path = ft_strjoin("PWD=", path_current);
