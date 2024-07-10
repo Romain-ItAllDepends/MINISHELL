@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:56:30 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/06 11:42:21 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/10 11:47:37 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	fill_arg(t_char_list **tmp_char,
 }
 
 void	fill_expanded_arg(t_char_list **tmp_char,
-	t_char_list **splitted_chars)
+	t_char_list **splitted_chars, char *quote)
 {
 	while (*tmp_char && (*tmp_char)->was_in_a_variable == TRUE)
 	{
@@ -61,8 +61,15 @@ void	fill_expanded_arg(t_char_list **tmp_char,
 			|| (*tmp_char)->value == NEWLINE
 			|| (*tmp_char)->value == TAB)
 			break ;
+		if (*quote && *quote == (*tmp_char)->value)
+			break ;
 		fill_arg(tmp_char, splitted_chars);
 	}
+	if (*tmp_char && *quote && *quote != (*tmp_char)->value
+		&& (*tmp_char)->value != SPACE
+			&& (*tmp_char)->value != NEWLINE
+			&& (*tmp_char)->value != TAB)
+		fill_arg(tmp_char, splitted_chars);
 }
 
 void	fill_not_expand_arg(t_char_list **tmp_char,
@@ -97,7 +104,7 @@ int	ft_split_argument(t_argument *argument_to_split,
 	set_var(tmp, &tmp_char);
 	fill_not_expand_arg(&tmp_char, &splitted_arguments->chars,
 		&in_quote, &quote);
-	rest_argument(&tmp_char, &splitted_arguments->chars);
+	rest_argument(&tmp_char, &splitted_arguments->chars, &quote);
 	ft_lstadd_back_argument(args, splitted_arguments);
 	if (set_last_point(&tmp, &tmp_char) == 0)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 08:06:33 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/10 11:38:25 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -390,7 +390,6 @@ int								manage_export(char **command_line,
 									t_vars **vars, t_env **env);
 int								manage_env(char **command_line,
 									t_vars **vars, t_redirection *redirect);
-// int								manage_exit(char **command_line, t_vars **vars);
 int								cmd_selector(t_env **env,
 									char **command_line, t_vars *vars,
 									t_redirection *redirect);
@@ -647,15 +646,16 @@ t_bool							need_to_be_expand_hd(char *str, t_env *env);
 int								ft_strlen_with_expand(char *str, t_env *env,
 									t_vars *vars);
 void							rest_argument(t_char_list **tmp_char,
-									t_char_list **splitted_chars);
+									t_char_list **splitted_chars, char *quote);
 int								set_last_point(t_argument **tmp,
 									t_char_list **tmp_char);
 void							set_var(t_argument *tmp,
 									t_char_list **tmp_char);
 void							fill_expanded_arg(t_char_list **tmp_char,
-									t_char_list **splitted_chars);
+									t_char_list **splitted_chars, char *quote);
 void							fill_not_expand_arg(t_char_list **tmp_char,
 									t_char_list **splitted_chars,
 									t_bool *in_quote, char *quote);
+t_bool							is_not_in_double_quote(char *str, int x);
 
 #endif
