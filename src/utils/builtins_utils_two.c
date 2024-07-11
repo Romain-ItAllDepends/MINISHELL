@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils_two.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 07:00:41 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 13:44:06 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/10 08:01:27 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	manage_cd_unset(char **command_line, t_vars **vars, t_env **env)
 {
 	if (ft_strcmp(command_line[0], "cd") == 0 && ft_strlen(command_line[0]) > 0)
 	{
-		
 		(*vars)->exit_code = ft_cd(command_line, env);
 		return (0);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:31:02 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/29 20:18:03 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:55:58 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_command_line_parsing	*parsing_command(
 		if (pipes_management(&remaining_line) == 1)
 		{
 			result->did_succeed = FALSE;
+			free(command_parsing);
 			return (result);
 		}
 		free(command_parsing);

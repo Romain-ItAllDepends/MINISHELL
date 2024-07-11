@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:11:08 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/29 09:07:25 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/11 06:23:13 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,13 @@ char	**find_the_accessible_path(char **path,
 	check_error = error_command_for_find_path(command_line, vars);
 	if (check_error != NULL)
 		return (check_error);
+	if (command_line[0][0] == '.' && command_line[0][1] == 0
+		&& !command_line[1])
+	{
+		vars->exit_code = 2;
+		ft_putstr_fd("minishell: .: filename argument required\n", 2);
+		return (command_line);
+	}
 	if (access(command_line[0], X_OK) == 0)
 	{
 		dir = opendir(command_line[0]);

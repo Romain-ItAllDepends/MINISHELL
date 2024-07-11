@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 15:59:29 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/29 16:15:38 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/10 14:48:56 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_command_parsing_result	*ft_allocated_result(void)
 {
 	t_command_parsing_result		*result;
 
-	result = malloc(sizeof(t_command_parsing_result));
+	result = ft_calloc(sizeof(t_command_parsing_result), 1);
 	if (!result)
 	{
 		result->did_succeed = FALSE;

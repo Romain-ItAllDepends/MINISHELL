@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 07:55:39 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/06 15:41:45 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:44:24 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static int	handle_path_with_slash(char **full_cmd)
 	{
 		ft_putstr_fd(full_cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
+		return (127);
 	}
 	return (127);
 }

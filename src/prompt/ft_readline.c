@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:20:34 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 09:17:12 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 08:56:15 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static char	*process_successful_command(t_command_line_parsing
 		free(parsing_result);
 	if (command_line)
 		free(command_line);
+	parsing_result =NULL;
 	command_line = NULL;
 	return (command_line);
 }
@@ -45,7 +46,19 @@ static char	*verif_command_line(char *command_line
 		if (handle_parsing_errors(parsing_result, command_line, vars) == 1)
 			return (NULL);
 		if (check_pipe_position(command_line, vars) == 1)
+		{
+			if (parsing_result && parsing_result->commands
+				&& parsing_result->commands->arguments)
+				ft_lstclear_arguments(&parsing_result->commands->arguments);
+			if (parsing_result && parsing_result->commands
+				&& parsing_result->commands->redirections)
+				ft_lstclear_redirections(&parsing_result->commands->redirections);
+			if (parsing_result && parsing_result->commands)
+				ft_lstclear_commands(&parsing_result->commands);
+			if (parsing_result)
+				free(parsing_result);
 			return (NULL);
+		}
 		if (check_empty_quotes(command_line, parsing_result, vars) == 1)
 			return (NULL);
 		command_line = process_successful_command(parsing_result,
@@ -72,9 +85,6 @@ int	ft_readline(t_env **env, t_vars *vars)
 	command_line = NULL;
 	while (1)
 	{
-		if (g_sig != 0)
-			vars->exit_code = g_sig;
-		g_sig = 0;
 		if (vars->exit == TRUE)
 			free_exit(env, vars);
 		if (command_line)
@@ -90,7 +100,10 @@ int	ft_readline(t_env **env, t_vars *vars)
 				free(command_line);
 			break ;
 		}
+		if (g_sig != 0)
+			vars->exit_code = g_sig;
+		g_sig = 0;
 		command_line = verif_command_line(command_line, env, vars);
 	}
-	return (0);
+	return (vars->exit_code);
 }

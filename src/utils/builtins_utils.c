@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 11:47:35 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/10 10:09:53 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 09:03:40 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	manage_export(char **command_line,
 		&& ft_strlen(command_line[0]) > 0)
 	{
 		if (command_line[1])
-			(*vars)->exit_code = export(env, command_line);
+			(*vars)->exit_code = export(env, command_line, *vars);
 		else
 		{
 			envp = env_to_char_export(tmp);
@@ -51,13 +51,14 @@ int	manage_env(char **command_line, t_vars **vars, t_redirection *redirect)
 
 t_bool	is_builtins_exec(t_vars *vars)
 {
-	if (ft_strcmp(vars->cmd[vars->cmd_index - 1][0], "unset") == 0
+	if (vars && vars->cmd_index && vars->cmd[vars->cmd_index - 1][0]
+		&& (ft_strcmp(vars->cmd[vars->cmd_index - 1][0], "unset") == 0
 		|| ft_strcmp(vars->cmd[vars->cmd_index - 1][0], "export") == 0
 		|| ft_strcmp(vars->cmd[vars->cmd_index - 1][0], "cd") == 0
 		|| ft_strcmp(vars->cmd[vars->cmd_index - 1][0], "pwd") == 0
 		|| ft_strcmp(vars->cmd[vars->cmd_index - 1][0], "echo") == 0
 		|| ft_strcmp(vars->cmd[vars->cmd_index - 1][0], "exit") == 0
-		|| ft_strcmp(vars->cmd[vars->cmd_index - 1][0], "env") == 0)
+		|| ft_strcmp(vars->cmd[vars->cmd_index - 1][0], "env") == 0))
 		return (TRUE);
 	return (FALSE);
 }

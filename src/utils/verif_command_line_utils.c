@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_command_line_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 11:09:52 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/25 13:20:03 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:57:33 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,13 @@ int	handle_parsing_errors(t_command_line_parsing	*parsing_result,
 {
 	if (!parsing_result->did_succeed)
 	{
-		free(command_line);
+		if (command_line)
+			free(command_line);
 		vars->exit_code = 2;
-		ft_lstclear_commands(&parsing_result->commands);
-		free(parsing_result);
+		if (parsing_result && parsing_result->commands)
+			ft_lstclear_commands(&parsing_result->commands);
+		if (parsing_result)
+			free(parsing_result);
 		return (1);
 	}
 	return (0);

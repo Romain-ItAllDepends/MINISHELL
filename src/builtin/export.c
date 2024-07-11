@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:24:05 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/09 15:31:01 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 06:36:37 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static void	handle_export_status_2(t_env **env,
 		hide_and_update_env_var(tmp_env, cmd);
 }
 
-int	export(t_env **env, char **cmd)
+int	export(t_env **env, char **cmd, t_vars *vars)
 {
 	t_env	*tmp_env;
 	char	*var_name;
@@ -114,6 +114,7 @@ int	export(t_env **env, char **cmd)
 		if (export_status == 1)
 		{
 			i++;
+			vars->exit_code = 1;
 			continue ;
 		}
 		var_name = make_var_name(cmd[i]);
@@ -125,5 +126,7 @@ int	export(t_env **env, char **cmd)
 		free_export(var_name, value);
 		i++;
 	}
-	return (export_status);
+	if (vars->exit_code == 1)
+		return (1);
+	return (0);
 }

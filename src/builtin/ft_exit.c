@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:36:51 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 08:21:10 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 07:15:25 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,14 @@ int	ft_exit(char **command_line, t_vars *vars)
 	if (!has_invalid_argument(command_line, vars))
 	{
 		vars->exit = TRUE;
-		return (1);
+		return (0);
 	}
 	i = 0;
 	while (command_line[i])
 		i++;
 	handle_exit_arguments(command_line, i, vars);
 	if (i > 2)
-		return (1);
+		return (0);
 	vars->exit = TRUE;
-	return (1);
+	return (0);
 }

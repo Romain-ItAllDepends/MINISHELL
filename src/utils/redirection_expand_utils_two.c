@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 18:30:36 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 14:19:20 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/06/29 20:39:22 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	redirection_expand_exit_code(t_vars *vars,
 	int		j;
 	char	*exit_code;
 
+	printf("function one\n");
 	j = 0;
 	exit_code = ft_itoa(vars->exit_code);
 	while (exit_code[j])

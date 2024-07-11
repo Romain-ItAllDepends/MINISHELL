@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 13:43:30 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/11 06:37:06 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,6 @@ int								ft_strncmp(const char *s1,
 int								ft_strcspn2(const char *s, char *reject);
 char							*ft_itoa(int n);
 char							*copy_without_quote(char *s);
-void							ft_exit_message_0(void);
 void							ft_exit_message_2(char *command);
 void							ft_exit_message_too_many_arguments(void);
 void							ft_exit_message_argument_required(
@@ -482,9 +481,8 @@ int								cmd_selector(t_env **env,
 * Builtins
 */
 
-int								export(t_env **env, char **cmd);
+int								export(t_env **env, char **cmd, t_vars *vars);
 int								ft_cd(char **command, t_env **env);
-//int								ft_cd(char **command, t_env **env, t_vars *vars);
 int								ft_echo(char **command,
 									t_vars *vars, t_redirection *redirect);
 int								ft_pwd(t_vars *vars, t_redirection *redirect);
