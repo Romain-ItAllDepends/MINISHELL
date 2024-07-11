@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 21:22:31 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/11 07:41:17 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 09:22:50 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	verif_or_builtins(t_vars *vars, t_redirection *redirect
 		free_child_process(vars, redirect, env, tmp);
 		exit(exit_code);
 	}
-	if (actual_cmd == NULL || actual_cmd[0][0] == 0)
+	if (vars->cmd && (actual_cmd == NULL || actual_cmd[0][0] == 0))
 	{
 		free_child_process(vars, redirect, env, tmp);
 		exit (0);
