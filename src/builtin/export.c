@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:24:05 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/11 06:36:37 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 09:40:46 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*make_var_name(char *str)
 
 static void	free_full_path(t_env *tmp_env, char *cmd, char *value)
 {
-	if(tmp_env && tmp_env->full_path
+	if (tmp_env && tmp_env->full_path
 		&& ft_strchr(tmp_env->full_path, '=') == 0)
 	{
 		free(tmp_env->full_path);
@@ -103,27 +103,24 @@ int	export(t_env **env, char **cmd, t_vars *vars)
 {
 	t_env	*tmp_env;
 	char	*var_name;
-	char	*value;
 	int		export_status;
 	int		i;
 
 	i = 1;
 	while (cmd[i] != NULL)
 	{
-		var_set(&var_name, &value, &export_status, cmd[i]);
+		var_set(&var_name, &export_status, cmd[i], vars);
 		if (export_status == 1)
-		{
 			i++;
-			vars->exit_code = 1;
+		if (export_status == 1)
 			continue ;
-		}
 		var_name = make_var_name(cmd[i]);
 		tmp_env = lst_search_env(var_name, *env);
 		if (export_status == 0)
 			handle_export_status_0(env, tmp_env, cmd[i], var_name);
 		else if (export_status == 2)
 			handle_export_status_2(env, tmp_env, cmd[i], var_name);
-		free_export(var_name, value);
+		free_export(var_name);
 		i++;
 	}
 	if (vars->exit_code == 1)

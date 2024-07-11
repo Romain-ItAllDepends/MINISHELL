@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:28:15 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/21 19:48:03 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:53:36 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,13 @@ char	*ft_strjoin_quoted_arg(char *s1, const char *s2, char *reject)
 	if (s1)
 		free(s1);
 	return (tab);
+}
+
+void	error_message_pipe(t_redirection_parsing *redirection_result,
+	char *str)
+{
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+	write(2, str, 1);
+	ft_putstr_fd("'\n", 2);
+	redirection_result->did_succeed = FALSE;
 }

@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:21:16 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/09 08:42:43 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 09:33:14 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_env	*find_env_by_var_name(t_env *env, const char *var_name)
 	return (NULL);
 }
 
-int ft_chdid_and_verif(char *stock)
+int	ft_chdid_and_verif(char *stock)
 {
 	if (chdir(stock) == -1)
 	{

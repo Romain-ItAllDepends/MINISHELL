@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/11 09:14:08 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 10:03:23 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,9 +345,9 @@ void							update_env_var(t_env *tmp_env,
 									char *cmd, char *value);
 void							hide_and_update_env_var(t_env *tmp_env,
 									char *cmd);
-void							var_set(char **var_name, char **value,
-									int *export_status, char *cmd);
-void							free_export(char *var_name, char *value);
+void							var_set(char **var_name, int *export_status,
+									char *cmd, t_vars *vars);
+void							free_export(char *var_name);
 void							quit(int sig_num);
 
 /*
@@ -657,5 +657,11 @@ void							fill_not_expand_arg(t_char_list **tmp_char,
 									t_char_list **splitted_chars,
 									t_bool *in_quote, char *quote);
 t_bool							is_not_in_double_quote(char *str, int x);
+void							error_message_pipe(
+									t_redirection_parsing *redirection_result,
+									char *str);
+char							*set_remaining_line(char *str);
+int								verif_error_1(char *str);
+int								ft_isalpha(int c);
 
 #endif

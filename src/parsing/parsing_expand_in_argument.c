@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:20:40 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 10:50:12 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 09:41:55 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	*simple_arg(char *argument, int *i, t_char_list **chars)
 		if ((*i > 0 && argument[*i - 1] != '\'' && argument[*i] == '$')
 			|| (i == 0 && argument[*i] == '$'))
 			break ;
-		if (argument[*i] == '$' 
+		if (argument[*i] == '$'
 			&& is_not_in_double_quote(argument, *i) == TRUE)
 			break ;
 		tmp = lst_new_char_list();

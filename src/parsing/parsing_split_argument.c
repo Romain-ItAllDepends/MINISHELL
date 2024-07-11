@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:56:30 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 11:47:37 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 09:42:27 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	fill_expanded_arg(t_char_list **tmp_char,
 	}
 	if (*tmp_char && *quote && *quote != (*tmp_char)->value
 		&& (*tmp_char)->value != SPACE
-			&& (*tmp_char)->value != NEWLINE
-			&& (*tmp_char)->value != TAB)
+		&& (*tmp_char)->value != NEWLINE
+		&& (*tmp_char)->value != TAB)
 		fill_arg(tmp_char, splitted_chars);
 }
 

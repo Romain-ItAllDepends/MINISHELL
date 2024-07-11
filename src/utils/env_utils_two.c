@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 05:44:21 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/11 06:44:16 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 10:02:42 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,6 @@ static t_bool	set_append(char *str, int *len_mid)
 	return (TRUE);
 }
 
-static int	ft_isalpha(int c)
-{
-	if (!((c >= 97 && c <= 122) || (c >= 65 && c <= 90)))
-		return (0);
-	return (1);
-}
-
 int	verif_export(char *str)
 {
 	int		i;
@@ -96,12 +89,8 @@ int	verif_export(char *str)
 	append = TRUE;
 	if (str[0] == '_' && str[1] == '\0')
 		return (0);
-	if ((ft_isdigit(str[0]) || str[0] == '='
-		|| ft_isalpha(str[0]) == 0) && str[0] != '_')
-	{
-		error_export_1(str);
+	if (verif_error_1(str) == 1)
 		return (1);
-	}
 	len_mid = ft_strcspn(str, "=");
 	append = set_append(str, &len_mid);
 	while (str[i])

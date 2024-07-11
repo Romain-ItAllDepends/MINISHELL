@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:11:08 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/11 06:23:13 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 09:32:02 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,24 @@ int	access_dir(char **command_line, DIR *dir, t_vars *vars)
 	return (vars->exit_code);
 }
 
+void	dir_error(char **command_line, t_vars *vars)
+{
+	DIR		*dir;
+
+	dir = opendir(command_line[0]);
+	if (dir)
+	{
+		vars->exit_code = access_dir(command_line, dir, vars);
+		closedir(dir);
+	}
+}
+
 char	**find_the_accessible_path(char **path,
 	t_vars *vars, char **command_line)
 {
 	int		i;
 	char	*bin_path;
 	char	*is_valid_cmd;
-	DIR		*dir;
 	char	**check_error;
 
 	i = 0;
@@ -73,12 +84,7 @@ char	**find_the_accessible_path(char **path,
 	}
 	if (access(command_line[0], X_OK) == 0)
 	{
-		dir = opendir(command_line[0]);
-		if (dir)
-		{
-			vars->exit_code = access_dir(command_line, dir, vars);
-			closedir(dir);
-		}
+		dir_error(command_line, vars);
 		return (command_line);
 	}
 	vars->exit_code = build_path(path, &bin_path, &is_valid_cmd, command_line);

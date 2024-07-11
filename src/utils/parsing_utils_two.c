@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 09:23:44 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 15:40:42 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 09:56:47 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,10 @@ t_redirection_parsing	*parse_redirection(char *str)
 	redirection_result = ft_verif_redirection(str, redirection_result);
 	if (redirection_result->did_succeed == FALSE)
 		return (redirection_result);
-	if (str[0] == '>' && str[1] == '>')
-		str = skip_one_character(str);
-	else if (str[0] == '<' && str[1] == '<')
-		str = skip_one_character(str);
-	str = skip_one_character(str);
-	str = skip_spaces(str);
+	str = set_remaining_line(str);
 	if (str && str[0] == '|')
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-		write(2, str, 1);
-		ft_putstr_fd("'\n", 2);
-		redirection_result->did_succeed = FALSE;
+		error_message_pipe(redirection_result, str);
 		return (redirection_result);
 	}
 	redirection_result = unclose_quote(str, redirection_result);

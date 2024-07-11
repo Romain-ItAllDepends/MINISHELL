@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:20:34 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/11 08:56:15 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/11 09:51:04 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,23 @@ static char	*process_successful_command(t_command_line_parsing
 		free(parsing_result);
 	if (command_line)
 		free(command_line);
-	parsing_result =NULL;
+	parsing_result = NULL;
 	command_line = NULL;
 	return (command_line);
+}
+
+static void	pipe_error(t_command_line_parsing *parsing_result)
+{
+	if (parsing_result && parsing_result->commands
+		&& parsing_result->commands->arguments)
+		ft_lstclear_arguments(&parsing_result->commands->arguments);
+	if (parsing_result && parsing_result->commands
+		&& parsing_result->commands->redirections)
+		ft_lstclear_redirections(&parsing_result->commands->redirections);
+	if (parsing_result && parsing_result->commands)
+		ft_lstclear_commands(&parsing_result->commands);
+	if (parsing_result)
+		free(parsing_result);
 }
 
 static char	*verif_command_line(char *command_line
@@ -38,6 +52,9 @@ static char	*verif_command_line(char *command_line
 {
 	t_command_line_parsing	*parsing_result;
 
+	if (g_sig != 0)
+		vars->exit_code = g_sig;
+	g_sig = 0;
 	if (command_line != NULL && command_line[0] != '\0')
 	{
 		add_history_and_parse(command_line, &parsing_result);
@@ -47,16 +64,7 @@ static char	*verif_command_line(char *command_line
 			return (NULL);
 		if (check_pipe_position(command_line, vars) == 1)
 		{
-			if (parsing_result && parsing_result->commands
-				&& parsing_result->commands->arguments)
-				ft_lstclear_arguments(&parsing_result->commands->arguments);
-			if (parsing_result && parsing_result->commands
-				&& parsing_result->commands->redirections)
-				ft_lstclear_redirections(&parsing_result->commands->redirections);
-			if (parsing_result && parsing_result->commands)
-				ft_lstclear_commands(&parsing_result->commands);
-			if (parsing_result)
-				free(parsing_result);
+			pipe_error(parsing_result);
 			return (NULL);
 		}
 		if (check_empty_quotes(command_line, parsing_result, vars) == 1)
@@ -100,9 +108,6 @@ int	ft_readline(t_env **env, t_vars *vars)
 				free(command_line);
 			break ;
 		}
-		if (g_sig != 0)
-			vars->exit_code = g_sig;
-		g_sig = 0;
 		command_line = verif_command_line(command_line, env, vars);
 	}
 	return (vars->exit_code);
