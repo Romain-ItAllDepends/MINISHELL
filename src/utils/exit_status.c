@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 15:06:26 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 09:11:52 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/12 11:39:21 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ void	wait_pids(t_vars *vars)
 			pid = vars->pids[i];
 			waitpid(vars->pids[i], &status, 0);
 			i++;
-			if (WIFSIGNALED(status))
-				vars->exit_code = WTERMSIG(status) + 128;
-			else
-				vars->exit_code = WEXITSTATUS(status);
+			vars->exit_code = WEXITSTATUS(status);
 			if (vars->exit_code == 130)
 				g_sig = SIGINT + 128;
 			i++;
