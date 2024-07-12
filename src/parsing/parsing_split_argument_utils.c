@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 20:01:11 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/30 15:25:28 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:48:59 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ void	fill_no_quote_arg(t_char_list **tmp_char,
 	t_char_list	*arg;
 
 	arg = NULL;
+	if (*tmp_char && (*tmp_char)->value != quote)
+	{
+		arg = lst_new_char_list();
+		if (!arg)
+			return ;
+		arg->value = (*tmp_char)->value;
+		arg->was_in_a_variable = (*tmp_char)->was_in_a_variable;
+		ft_lstadd_back_char_list(splitted_chars, arg);
+		(*tmp_char)->last_pos = FALSE;
+		*tmp_char = (*tmp_char)->next;
+	}
 	if (*tmp_char && (*tmp_char)->value != quote)
 	{
 		arg = lst_new_char_list();
