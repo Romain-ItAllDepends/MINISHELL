@@ -6,11 +6,25 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:27:46 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/08 11:50:28 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/12 13:00:41 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	*new_char(const char *argument, int *i, t_char_list **chars)
+{
+	t_char_list	*tmp;
+
+	tmp = NULL;
+	tmp = lst_new_char_list();
+	if (!tmp)
+		return (NULL);
+	tmp->value = argument[*i];
+	ft_lstadd_back_char_list(chars, tmp);
+	*i += 1;
+	return ((void *)1);
+}
 
 t_bool	need_to_be_expand_hd(char *str, t_env *env)
 {

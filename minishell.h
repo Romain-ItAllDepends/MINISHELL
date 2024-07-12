@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/11 10:03:23 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/12 13:00:02 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -663,5 +663,7 @@ void							error_message_pipe(
 char							*set_remaining_line(char *str);
 int								verif_error_1(char *str);
 int								ft_isalpha(int c);
+void							*new_char(const char *argument, int *i,
+									t_char_list **chars);
 
 #endif

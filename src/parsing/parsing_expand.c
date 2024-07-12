@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_expand.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:15:04 by rgobet            #+#    #+#             */
-/*   Updated: 2024/06/30 15:27:04 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:27:44 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ static void	ft_expand_arguments(t_argument_to_expand *tmp_to_expand, t_env *env,
 	argument_with_expanded_vars = NULL;
 	while (tmp_to_expand != NULL)
 	{
-		argument_with_expanded_vars = ft_expand_vars_in_argument(
-				tmp_to_expand->content, env, vars);
+		if (tmp_to_expand->content && tmp_to_expand->content[0])
+		{
+			argument_with_expanded_vars = ft_expand_vars_in_argument(
+					tmp_to_expand->content, env, vars);
+		}
 		if (argument_with_expanded_vars->chars == NULL)
 		{
 			free(argument_with_expanded_vars);
