@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:56:30 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/13 21:08:20 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/13 22:15:33 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	fill_not_expand_arg(t_char_list **tmp_char,
 			if (!i && function_verif_quote(tmp_char, quote, in_quote) == 0)
 				continue ;
 			fill_in_quote_arg(tmp_char, splitted_chars, which_quote(quote));
+			i = 0;
 		}
 	}
 }
@@ -111,7 +112,7 @@ int	ft_split_argument(t_argument *argument_to_split,
 	in_quote = init_function(&quote, &tmp, &splitted_arguments,
 			argument_to_split);
 	quote = ft_calloc(sizeof(char),
-			ft_lstsize_arg(argument_to_split) + 1);
+			ft_lstsize_arg(argument_to_split) + 100);
 	if (!quote)
 		return (1);
 	set_var(tmp, &tmp_char);

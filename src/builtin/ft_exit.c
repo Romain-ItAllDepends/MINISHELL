@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:36:51 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/11 07:15:25 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/13 22:09:06 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	ft_exit(char **command_line, t_vars *vars)
 {
 	int	i;
 
-	if (!command_line || !command_line[0])
+	if (!command_line || !command_line[0] || !command_line[0][0])
 		return (1);
 	if (ft_strcmp(command_line[0], "exit") != 0
 		&& ft_strlen(command_line[0]) != 0)
