@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:01:08 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/12 14:49:02 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/13 18:39:44 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static void	free_node_resources(t_redirection *node, t_vars *vars)
 	if (node->name_infile)
 		free(node->name_infile);
 	if (node->file_heredoc && node->e_position == HERE && vars->cmd_index != 0
-		&& vars->child != 0 && access(node->file_heredoc ,F_OK) == 0)
+		&& vars->child != 0 && access(node->file_heredoc, F_OK) == 0)
 		unlink(node->file_heredoc);
 	if (g_sig != 0 && node->file_heredoc
-		&& access(node->file_heredoc ,F_OK) == 0)
+		&& access(node->file_heredoc, F_OK) == 0)
 		unlink(node->file_heredoc);
 	if (node->limiter)
 		free(node->limiter);

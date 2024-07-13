@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 05:44:21 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/12 15:02:16 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/13 18:40:05 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	update_env_var(t_env *tmp_env, char *cmd, char *value)
 	else
 		tmp_env->hide = TRUE;
 	if (tmp_env->value && (ft_strcmp(tmp_env->value, value) != 0
-		&& ft_strlen(value) != 0))
+			&& ft_strlen(value) != 0))
 	{
 		free(tmp_env->value);
 		tmp_env->value = copy(value);

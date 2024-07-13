@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/13 11:21:10 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/13 21:16:32 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -447,16 +447,14 @@ t_argument						*ft_expand_vars_in_argument(
 int								expand_argument(char *argument,
 									t_env *env, t_vars *vars,
 									t_char_list **chars);
-t_bool							init_function(char *quote, t_argument **tmp,
+t_bool							init_function(char **quote, t_argument **tmp,
 									t_argument	**splitted_arguments,
 									t_argument *argument_to_split);
-int								function_verif_quote(t_char_list **tmp_char,
-									char *quote,
+int								function_verif_quote(
+									t_char_list **tmp_char, char **quote,
 									t_bool *quote_in_var);
 void							fill_no_quote_arg(t_char_list **tmp_char,
 									t_char_list **splitted_chars, char quote);
-t_bool							quote_function(t_char_list **tmp_char,
-									char *quote, t_bool in_quote);
 int								ft_split_argument(t_argument *argument_to_split,
 									t_argument **args);
 t_bool							need_to_increment(char *argument, int i);
@@ -655,7 +653,7 @@ void							fill_expanded_arg(t_char_list **tmp_char,
 									t_char_list **splitted_chars, char *quote);
 void							fill_not_expand_arg(t_char_list **tmp_char,
 									t_char_list **splitted_chars,
-									t_bool *in_quote, char *quote);
+									t_bool *in_quote, char **quote);
 t_bool							is_not_in_double_quote(char *str, int x);
 void							error_message_pipe(
 									t_redirection_parsing *redirection_result,
@@ -665,5 +663,12 @@ int								verif_error_1(char *str);
 int								ft_isalpha(int c);
 void							*new_char(const char *argument, int *i,
 									t_char_list **chars);
+void							which_quote_is(char **quote, char *quoted,
+									t_bool *quote_in_var, int i);
+t_bool							is_not_in_quote(char *quote, t_char_list *tmp);
+char							which_quote(char **quote);
+int								ft_lstsize_arg(t_argument *argument_to_split);
+t_env							*find_env_by_var_name(t_env *env,
+									const char *var_name);
 
 #endif

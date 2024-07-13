@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:37:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/08 14:59:56 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:45:24 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	echo_in_fd(char **command, int fd, int i)
 	{
 		ft_putstr_fd(command[i], fd);
 		if (command[i + 1] != NULL)
-			write(1, " ", 1);
+			write(fd, " ", 1);
 		i++;
 	}
 }
@@ -57,4 +57,18 @@ int	ft_count_char(char *str, char to_find)
 		i++;
 	}
 	return (count);
+}
+
+t_env	*find_env_by_var_name(t_env *env, const char *var_name)
+{
+	t_env	*current;
+
+	current = env;
+	while (current != NULL)
+	{
+		if (strcmp(current->var_name, var_name) == 0)
+			return (current);
+		current = current->next;
+	}
+	return (NULL);
 }

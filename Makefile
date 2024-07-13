@@ -92,6 +92,7 @@ MY_SOURCES= src/prompt/minishell.c \
 			src/utils/heredoc_utils_two.c \
 			src/utils/error_message.c \
 			src/utils/parsing_expand_arg.c \
+			src/utils/split_arg_utils.c
 
 
 MY_OBJECTS=$(MY_SOURCES:.c=.o)

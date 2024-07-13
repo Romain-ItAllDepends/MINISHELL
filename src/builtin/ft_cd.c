@@ -6,13 +6,13 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:21:16 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/12 15:06:37 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/13 21:15:20 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	check_error_ft_cd_home(char **command)
+static int	check_error_ft_cd_home(char **command)
 {
 	const char	*home;
 
@@ -33,7 +33,7 @@ int	check_error_ft_cd_home(char **command)
 	return (0);
 }
 
-int	check_error_ft_cd(char **command)
+static int	check_error_ft_cd(char **command)
 {
 	if (check_error_ft_cd_home(command) == 1)
 		return (1);
@@ -45,21 +45,7 @@ int	check_error_ft_cd(char **command)
 	return (0);
 }
 
-t_env	*find_env_by_var_name(t_env *env, const char *var_name)
-{
-	t_env	*current;
-
-	current = env;
-	while (current != NULL)
-	{
-		if (strcmp(current->var_name, var_name) == 0)
-			return (current);
-		current = current->next;
-	}
-	return (NULL);
-}
-
-int	ft_chdid_and_verif(char *stock)
+static int	ft_chdid_and_verif(char *stock)
 {
 	if (chdir(stock) == -1)
 	{
@@ -70,6 +56,15 @@ int	ft_chdid_and_verif(char *stock)
 	return (0);
 }
 
+static int	check_cd(char **command)
+{
+	if (check_error_ft_cd(command) == 1)
+		return (1);
+	if (check_error_ft_cd_home(command) == 1)
+		return (1);
+	return (0);
+}
+
 int	ft_cd(char **command, t_env **env)
 {
 	char	*path_current;
@@ -77,10 +72,7 @@ int	ft_cd(char **command, t_env **env)
 	t_env	*current;
 
 	current = *env;
-	if (check_error_ft_cd(command) == 1)
-		return (1);
-	if (check_error_ft_cd_home(command) == 1)
-		return (1);
+	check_cd(command);
 	current = find_env_by_var_name(*env, "OLDPWD");
 	if (!current)
 		return (EXIT_SUCCESS);

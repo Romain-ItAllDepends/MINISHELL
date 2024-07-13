@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 11:21:36 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/10 11:36:52 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/13 14:38:42 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	rest_argument(t_char_list **tmp_char,
 		&& (*tmp_char)->value != '\t' && (*tmp_char)->value != '\n'
 		&& in_quote == FALSE)
 	{
-		fill_not_expand_arg(tmp_char, splitted_chars, &in_quote, quote);
+		fill_not_expand_arg(tmp_char, splitted_chars, &in_quote, &quote);
 		fill_expanded_arg(tmp_char, splitted_chars, quote);
 	}
 }
