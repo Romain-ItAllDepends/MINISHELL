@@ -6,17 +6,18 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 14:16:48 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 09:59:24 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/12 15:20:07 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int	handle_initial_checks(char **command, t_vars *vars)
+static int	handle_initial_checks(char **command, t_vars *vars,
+	t_redirection *redirect)
 {
 	if (!command[1])
 	{
-		write (1, "\n", 1);
+		write (redirect->outfile_fd, "\n", 1);
 		return (0);
 	}
 	if (print_value_exit_status(command) == 0)
@@ -34,7 +35,7 @@ int	ft_echo(char **command, t_vars *vars, t_redirection *redirect)
 
 	i = 1;
 	no_newline = 0;
-	if (!handle_initial_checks(command, vars))
+	if (!handle_initial_checks(command, vars, redirect))
 		return (0);
 	while (command && command[i] && command[i][0] == '-'
 		&& ft_count_char(command[i], 'n')
