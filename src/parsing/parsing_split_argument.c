@@ -6,19 +6,20 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:56:30 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/13 22:15:33 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/14 02:12:55 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 static void	fill_in_quote_arg(t_char_list **tmp_char,
-	t_char_list **splitted_chars, char quote)
+	t_char_list **splitted_chars, char **str, t_bool *in_quote)
 {
 	t_char_list	*arg;
 
 	arg = NULL;
-	if (*tmp_char && (*tmp_char)->value != quote)
+	(void)in_quote;
+	if (*tmp_char && (*tmp_char)->value != which_quote(str))
 	{
 		arg = lst_new_char_list();
 		if (!arg)
@@ -29,7 +30,15 @@ static void	fill_in_quote_arg(t_char_list **tmp_char,
 		(*tmp_char)->last_pos = FALSE;
 		*tmp_char = (*tmp_char)->next;
 	}
-	else if (*tmp_char && (*tmp_char)->value == quote)
+	else if (*tmp_char && (*tmp_char)->next
+		&& (*tmp_char)->value == which_quote(str)
+		&& (*tmp_char)->next->value == which_quote(str))
+	{
+		(*str)[ft_strlen(*str)] = (*tmp_char)->next->value;
+		*tmp_char = (*tmp_char)->next->next;
+		*in_quote = FALSE;
+	}
+	else if (*tmp_char && (*tmp_char)->value == which_quote(str))
 		*tmp_char = (*tmp_char)->next;
 }
 
@@ -72,6 +81,22 @@ void	fill_expanded_arg(t_char_list **tmp_char,
 		fill_arg(tmp_char, splitted_chars);
 }
 
+// static void	quote_close(char **str, t_char_list **tmp_char, t_bool *in_quote)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (*str && (*str)[i])
+// 		i++;
+// 	if (*str && *tmp_char)
+// 		(*str)[i] = (*tmp_char)->value;
+// 	if (*tmp_char && (*tmp_char)->value == which_quote(str))
+// 	{
+// 		*in_quote = TRUE;
+// 		(*tmp_char) = (*tmp_char)->next;
+// 	}
+// }
+
 void	fill_not_expand_arg(t_char_list **tmp_char,
 	t_char_list **splitted_chars, t_bool *in_quote, char **quote)
 {
@@ -94,7 +119,8 @@ void	fill_not_expand_arg(t_char_list **tmp_char,
 		{
 			if (!i && function_verif_quote(tmp_char, quote, in_quote) == 0)
 				continue ;
-			fill_in_quote_arg(tmp_char, splitted_chars, which_quote(quote));
+			fill_in_quote_arg(tmp_char, splitted_chars, quote, in_quote);
+			// quote_close(quote, tmp_char, in_quote);
 			i = 0;
 		}
 	}
