@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 20:01:11 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/22 07:24:19 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/22 10:57:23 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,26 @@ void	which_quote_is(char **quote, char *quoted,
 	}
 }
 
+static int	skip_useless_quote(t_char_list **tmp)
+{
+	char		quote;
+	t_char_list	*tmp_char;
+
+	quote = 0;
+	tmp_char = *tmp;
+	if (tmp_char && (tmp_char->value == '"'
+		|| tmp_char->value == '\''))
+	{
+		quote = tmp_char->value;
+		if (tmp_char->next && quote == tmp_char->next->value)
+		{
+			*tmp = (*tmp)->next->next;
+			return (1);
+		}
+	}
+	return (0);
+}
+
 int	function_verif_quote(t_char_list **tmp_char, char **quote,
 	t_bool *quote_in_var)
 {
@@ -70,6 +90,10 @@ int	function_verif_quote(t_char_list **tmp_char, char **quote,
 	i = 0;
 	quoted = 0;
 	state = *quote_in_var;
+	while (state == FALSE && skip_useless_quote(tmp_char) == 1)
+		continue ;
+	if (!(*tmp_char))
+		return (*quote_in_var);
 	while ((*quote) && (*quote)[i])
 		i++;
 	((*quote))[i] = (*tmp_char)->value;
