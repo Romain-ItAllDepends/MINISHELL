@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 20:01:11 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/22 10:57:23 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/22 15:38:03 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ int	function_verif_quote(t_char_list **tmp_char, char **quote,
 	*quote_in_var = FALSE;
 	while ((*quote) && (*quote)[i])
 	{
-		which_quote_is(quote, &quoted, quote_in_var, i);
+		if ((*tmp_char)->was_in_a_variable == FALSE)
+			which_quote_is(quote, &quoted, quote_in_var, i);
 		i++;
 	}
 	if (state != *quote_in_var)
@@ -118,6 +119,9 @@ int	function_verif_quote(t_char_list **tmp_char, char **quote,
 		*tmp_char = (*tmp_char)->next;
 		((*quote))[i + 1] = (*tmp_char)->value;
 	}
+	// Recall the function /\
+	// if (*tmp_char && ((*tmp_char)->value == '"' || (*tmp_char)->value == '\''))
+	// 	function_verif_quote(tmp_char, quote, quote_in_var);
 	return (*quote_in_var);
 }
 

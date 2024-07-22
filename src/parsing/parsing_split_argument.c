@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:56:30 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/22 10:33:46 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/22 14:22:07 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,9 @@ void	fill_not_expand_arg(t_char_list **tmp_char,
 			i++;
 			if (function_verif_quote(tmp_char, quote, in_quote) == 1)
 				continue ;
+			if ((*tmp_char) && ((*tmp_char)->value == SPACE
+				|| (*tmp_char)->value == TAB || (*tmp_char)->value == NEWLINE))
+				break ;
 			fill_no_quote_arg(tmp_char, splitted_chars, which_quote(quote));
 		}
 		while (*tmp_char && *in_quote == TRUE)

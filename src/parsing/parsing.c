@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:31:02 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 14:55:58 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/22 14:04:01 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ t_command_line_parsing	*ft_parse_command_line(char *command_line)
 	result->commands = NULL;
 	command_parsing = NULL;
 	remaining_line = skip_spaces(command_line);
+	if (remaining_line[0] == '|')
+	{
+		result->did_succeed = FALSE;
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		return (result);
+	}
 	if (ft_strlen(remaining_line) == 0)
 	{
 		result->did_succeed = TRUE;
