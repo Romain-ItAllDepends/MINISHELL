@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:20:30 by tebandam          #+#    #+#             */
-/*   Updated: 2024/06/29 16:47:44 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/22 08:04:20 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,41 +32,34 @@ char	*copy(char *s)
 	return (tmp);
 }
 
-static int	count_char(char c, char *str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str && str[i])
-	{
-		if (str[i] == c)
-			count++;
-		i++;
-	}
-	return (count);
-}
-
 char	*copy_without_quote(char *s)
 {
 	int		i;
 	int		j;
+	char	quote;
 	char	*tmp;
 
 	if (!s)
 		return (NULL);
-	tmp = malloc(sizeof(char) * (ft_strlen(s) + 1
-				- count_char('\'', s) - count_char('\"', s)));
+	tmp = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!tmp)
 		return (NULL);
 	i = 0;
 	j = 0;
+	quote = 0;
 	while (s[j])
 	{
-		if (s[j] == '"' || s[j] == '\'')
+		if ((s[j] == '"' || s[j] == '\'') && s[j] == quote)
+		{
 			j++;
-		if (s[j] != 0 && s[j] != '"' && s[j] != '\'')
+			quote = 0;
+		}
+		else if (!quote && (s[j] == '"' || s[j] == '\''))
+		{
+			quote = s[j];
+			j++;
+		}
+		else if (s[j] != 0)
 		{
 			tmp[i] = s[j];
 			j++;

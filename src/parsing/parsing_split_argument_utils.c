@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 20:01:11 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/22 07:06:42 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/22 07:24:19 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,10 @@ int	function_verif_quote(t_char_list **tmp_char, char **quote,
 	int		i;
 	char	quoted;
 	t_bool	state;
-	// t_bool	start_status;
 
 	i = 0;
 	quoted = 0;
 	state = *quote_in_var;
-	// start_status = *quote_in_var;
 	while ((*quote) && (*quote)[i])
 		i++;
 	((*quote))[i] = (*tmp_char)->value;
