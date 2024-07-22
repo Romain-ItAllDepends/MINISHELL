@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 20:01:11 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/14 02:16:20 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/22 07:06:42 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,17 @@ int	function_verif_quote(t_char_list **tmp_char, char **quote,
 	int		i;
 	char	quoted;
 	t_bool	state;
+	// t_bool	start_status;
 
 	i = 0;
 	quoted = 0;
-	state = FALSE;
+	state = *quote_in_var;
+	// start_status = *quote_in_var;
 	while ((*quote) && (*quote)[i])
 		i++;
 	((*quote))[i] = (*tmp_char)->value;
 	i = 0;
+	*quote_in_var = FALSE;
 	while ((*quote) && (*quote)[i])
 	{
 		which_quote_is(quote, &quoted, quote_in_var, i);
@@ -84,6 +87,14 @@ int	function_verif_quote(t_char_list **tmp_char, char **quote,
 		(*tmp_char) = (*tmp_char)->next;
 		if (*tmp_char)
 			(*quote)[ft_strlen(*quote)] = (*tmp_char)->value;
+	}
+	if (*tmp_char && (*tmp_char)->next
+		&& state == TRUE && *quote_in_var == FALSE
+		&& ((*tmp_char)->next->value == '"' || (*tmp_char)->next->value == '\''))
+	{
+		*quote_in_var = TRUE;
+		*tmp_char = (*tmp_char)->next;
+		((*quote))[i + 1] = (*tmp_char)->value;
 	}
 	return (*quote_in_var);
 }
@@ -109,9 +120,6 @@ static t_argument	*ft_get_last_pos(t_argument *lst)
 t_bool	init_function(char **quote, t_argument **tmp,
 	t_argument	**splitted_arguments, t_argument *argument_to_split)
 {
-	t_bool	in_quote;
-
-	in_quote = FALSE;
 	(void)quote;
 	*splitted_arguments = lst_new_argument();
 	if (!*splitted_arguments)
@@ -120,5 +128,5 @@ t_bool	init_function(char **quote, t_argument **tmp,
 	*tmp = ft_get_last_pos(*tmp);
 	if (*tmp == NULL)
 		*tmp = argument_to_split;
-	return (in_quote);
+	return (FALSE);
 }
