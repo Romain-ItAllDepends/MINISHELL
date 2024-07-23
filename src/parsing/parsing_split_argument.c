@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:56:30 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/22 14:22:07 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/23 09:12:07 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,22 +81,6 @@ void	fill_expanded_arg(t_char_list **tmp_char,
 		fill_arg(tmp_char, splitted_chars);
 }
 
-// static void	quote_close(char **str, t_char_list **tmp_char, t_bool *in_quote)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (*str && (*str)[i])
-// 		i++;
-// 	if (*str && *tmp_char)
-// 		(*str)[i] = (*tmp_char)->value;
-// 	if (*tmp_char && (*tmp_char)->value == which_quote(str))
-// 	{
-// 		*in_quote = TRUE;
-// 		(*tmp_char) = (*tmp_char)->next;
-// 	}
-// }
-
 void	fill_not_expand_arg(t_char_list **tmp_char,
 	t_char_list **splitted_chars, t_bool *in_quote, char **quote)
 {
@@ -113,8 +97,7 @@ void	fill_not_expand_arg(t_char_list **tmp_char,
 			i++;
 			if (function_verif_quote(tmp_char, quote, in_quote) == 1)
 				continue ;
-			if ((*tmp_char) && ((*tmp_char)->value == SPACE
-				|| (*tmp_char)->value == TAB || (*tmp_char)->value == NEWLINE))
+			if ((*tmp_char) && white_space(tmp_char) == 1)
 				break ;
 			fill_no_quote_arg(tmp_char, splitted_chars, which_quote(quote));
 		}

@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:40:13 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/22 08:09:45 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/23 08:56:23 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,3 @@ int	ft_strlen_ultime(t_redirection_to_expand *tmp,
 	count += i;
 	return (count);
 }
-
-// char	*ft_remove_simple_quote(char *src)
-// {
-// 	char	*dest;
-// 	int		i;
-// 	int		j;
-
-// 	i = 1;
-// 	j = 0;
-// 	dest = malloc(sizeof(char *) + ft_strlen(src) - 1);
-// 	while (src[i])
-// 	{
-// 		dest[j] = src[i];
-// 		i++;
-// 		j++;
-// 		if (src[i + 1] == '\0')
-// 			break ;
-// 	}
-// 	dest[j] = '\0';
-// 	return (dest);
-// }

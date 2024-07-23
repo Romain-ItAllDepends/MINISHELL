@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:31:02 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/22 14:04:01 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/23 09:05:29 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ t_command_line_parsing	*parsing_command(
 	return (result);
 }
 
+static void	error_pipe(t_command_line_parsing *result)
+{
+	result->did_succeed = FALSE;
+	ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+}
+
 t_command_line_parsing	*ft_parse_command_line(char *command_line)
 {
 	char							*remaining_line;
@@ -82,8 +88,7 @@ t_command_line_parsing	*ft_parse_command_line(char *command_line)
 	remaining_line = skip_spaces(command_line);
 	if (remaining_line[0] == '|')
 	{
-		result->did_succeed = FALSE;
-		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		error_pipe(result);
 		return (result);
 	}
 	if (ft_strlen(remaining_line) == 0)

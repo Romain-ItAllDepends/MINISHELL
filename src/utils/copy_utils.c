@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:20:30 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/22 08:04:20 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/23 09:00:36 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,34 @@ char	*copy(char *s)
 	return (tmp);
 }
 
+static void	sub_copy_no_quote(char *s, char **tmp, int *i, int *j)
+{
+	static char	quote = 0;
+
+	if ((s[*j] == '"' || s[*j] == '\'') && s[*j] == quote)
+	{
+		j++;
+		quote = 0;
+	}
+	else if (!quote && (s[*j] == '"' || s[*j] == '\''))
+	{
+		quote = s[*j];
+		j++;
+	}
+	else if (s[*j] != 0)
+	{
+		(*tmp)[*i] = s[*j];
+		j++;
+		i++;
+	}
+	if (!s)
+		quote = 0;
+}
+
 char	*copy_without_quote(char *s)
 {
 	int		i;
 	int		j;
-	char	quote;
 	char	*tmp;
 
 	if (!s)
@@ -46,26 +69,8 @@ char	*copy_without_quote(char *s)
 		return (NULL);
 	i = 0;
 	j = 0;
-	quote = 0;
 	while (s[j])
-	{
-		if ((s[j] == '"' || s[j] == '\'') && s[j] == quote)
-		{
-			j++;
-			quote = 0;
-		}
-		else if (!quote && (s[j] == '"' || s[j] == '\''))
-		{
-			quote = s[j];
-			j++;
-		}
-		else if (s[j] != 0)
-		{
-			tmp[i] = s[j];
-			j++;
-			i++;
-		}
-	}
+		sub_copy_no_quote(s, &tmp, &i, &j);
 	tmp[i] = 0;
 	return (tmp);
 }

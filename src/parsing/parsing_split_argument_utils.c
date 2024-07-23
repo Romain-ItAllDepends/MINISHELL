@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 20:01:11 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/23 07:49:46 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/23 09:14:15 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,36 +31,7 @@ void	fill_no_quote_arg(t_char_list **tmp_char,
 	}
 }
 
-void	which_quote_is(char **quote, char *quoted,
-	t_bool *quote_in_var, int i)
-{
-	if ((*quote)[i] == '"' && (*quoted == (*quote)[i]
-		|| *quoted == 0) && *quote_in_var == TRUE)
-	{
-		*quoted = 0;
-		*quote_in_var = FALSE;
-	}
-	else if ((*quote)[i] == '"' && (*quoted == (*quote)[i]
-		|| *quoted == 0) && *quote_in_var == FALSE)
-	{
-		*quoted = (*quote)[i];
-		*quote_in_var = TRUE;
-	}
-	if ((*quote)[i] == '\'' && (*quoted == (*quote)[i]
-		|| *quoted == 0) && *quote_in_var == TRUE)
-	{
-		*quoted = 0;
-		*quote_in_var = FALSE;
-	}
-	else if ((*quote)[i] == '\'' && (*quoted == (*quote)[i]
-		|| *quoted == 0) && *quote_in_var == FALSE)
-	{
-		*quoted = (*quote)[i];
-		*quote_in_var = TRUE;
-	}
-}
-
-static int	skip_useless_quote(t_char_list **tmp)
+int	skip_useless_quote(t_char_list **tmp)
 {
 	char		quote;
 	t_char_list	*tmp_char;
@@ -68,7 +39,7 @@ static int	skip_useless_quote(t_char_list **tmp)
 	quote = 0;
 	tmp_char = *tmp;
 	if (tmp_char && (tmp_char->value == '"'
-		|| tmp_char->value == '\''))
+			|| tmp_char->value == '\''))
 	{
 		quote = tmp_char->value;
 		if (tmp_char->next && quote == tmp_char->next->value)
@@ -78,44 +49,6 @@ static int	skip_useless_quote(t_char_list **tmp)
 		}
 	}
 	return (0);
-}
-
-static void	verif_multi_quote(t_char_list **tmp_char, char **quote,
-	t_bool *quote_in_var, t_bool state)
-{
-	int	i;
-
-	i = ft_strlen(*quote);
-	if (*tmp_char && (*tmp_char)->was_in_a_variable == TRUE
-		&& *quote_in_var == FALSE)
-		*quote_in_var = state;
-	if (state != *quote_in_var)
-	{
-		if (*tmp_char)
-			(*tmp_char) = (*tmp_char)->next;
-		if (*tmp_char)
-			(*quote)[i] = (*tmp_char)->value;
-		while (*quote_in_var == FALSE && skip_useless_quote(tmp_char) == 1)
-			continue ;
-	}
-	if (*tmp_char && (*tmp_char)->next
-		&& state == TRUE && *quote_in_var == FALSE
-		&& ((*tmp_char)->next->value == '"' || (*tmp_char)->next->value == '\''))
-	{
-		*quote_in_var = TRUE;
-		*tmp_char = (*tmp_char)->next;
-		((*quote))[i + 1] = (*tmp_char)->value;
-	}
-	if (state != *quote_in_var && *tmp_char && (*tmp_char)->next
-		&& state == TRUE && ((*tmp_char)->next->value != '"'
-		|| (*tmp_char)->next->value != '\'')
-		&& ((*tmp_char)->value == '"' || (*tmp_char)->value == '\''))
-	{
-		if (*tmp_char)
-			(*tmp_char) = (*tmp_char)->next;
-		if (*tmp_char)
-			(*quote)[i] = (*tmp_char)->value;
-	}
 }
 
 int	function_verif_quote(t_char_list **tmp_char, char **quote,
