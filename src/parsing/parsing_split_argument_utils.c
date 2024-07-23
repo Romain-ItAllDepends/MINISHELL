@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 20:01:11 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/23 07:37:58 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/23 07:49:46 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ static void	verif_multi_quote(t_char_list **tmp_char, char **quote,
 			(*tmp_char) = (*tmp_char)->next;
 		if (*tmp_char)
 			(*quote)[i] = (*tmp_char)->value;
+		while (*quote_in_var == FALSE && skip_useless_quote(tmp_char) == 1)
+			continue ;
 	}
 	if (*tmp_char && (*tmp_char)->next
 		&& state == TRUE && *quote_in_var == FALSE
