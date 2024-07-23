@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:21:16 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/13 21:15:20 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/23 11:26:23 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,28 @@ int	ft_cd(char **command, t_env **env)
 		return (EXIT_SUCCESS);
 	path_current = getcwd(NULL, 0);
 	if (current && current->full_path)
+	{
 		free(current->full_path);
-	current->full_path = ft_strjoin("OLDPWD=", path_current);
-	free(path_current);
-	current = *env;
-	current = find_env_by_var_name(*env, "PWD");
-	stock = command[1];
-	if (ft_chdid_and_verif(stock) == 1)
-		return (2);
-	free(current->full_path);
-	path_current = getcwd(NULL, 0);
-	current->full_path = ft_strjoin("PWD=", path_current);
-	free(path_current);
+		free(current->value);
+		if (path_current)
+			current->value = copy(path_current);
+		current->full_path = ft_strjoin("OLDPWD=", path_current);
+		free(path_current);
+		current = *env;
+		current = find_env_by_var_name(*env, "PWD");
+		stock = command[1];
+		if (ft_chdid_and_verif(stock) == 1)
+			return (2);
+	}
+	if (current && current->full_path)
+	{
+		free(current->full_path);
+		free(current->value);
+		path_current = getcwd(NULL, 0);
+		if (path_current)
+			current->value = copy(path_current);
+		current->full_path = ft_strjoin("PWD=", path_current);
+		free(path_current);
+	}
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:20:30 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/23 09:00:36 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/23 11:31:56 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*copy(char *s)
 	if (!tmp)
 		return (NULL);
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		tmp[i] = s[i];
 		i++;
@@ -38,19 +38,19 @@ static void	sub_copy_no_quote(char *s, char **tmp, int *i, int *j)
 
 	if ((s[*j] == '"' || s[*j] == '\'') && s[*j] == quote)
 	{
-		j++;
+		*j += 1;
 		quote = 0;
 	}
 	else if (!quote && (s[*j] == '"' || s[*j] == '\''))
 	{
 		quote = s[*j];
-		j++;
+		*j += 1;
 	}
 	else if (s[*j] != 0)
 	{
 		(*tmp)[*i] = s[*j];
-		j++;
-		i++;
+		*j += 1;
+		*i += 1;
 	}
 	if (!s)
 		quote = 0;
