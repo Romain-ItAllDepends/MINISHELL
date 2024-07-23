@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:07:22 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 11:09:19 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/23 07:12:03 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static void	ft_sigint(int signal)
 static void	ft_sigquit(int signal)
 {
 	(void)signal;
-	g_sig = 131;
+	g_sig = signal + 128;
 	printf("Quit\n");
 }
 
 void	ft_ctrl_c(int signal)
 {
 	(void)signal;
-	g_sig = 130;
+	g_sig = signal + 128;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);

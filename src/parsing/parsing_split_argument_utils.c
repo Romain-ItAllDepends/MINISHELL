@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 20:01:11 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/22 15:38:03 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/23 07:37:58 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,42 @@ static int	skip_useless_quote(t_char_list **tmp)
 	return (0);
 }
 
+static void	verif_multi_quote(t_char_list **tmp_char, char **quote,
+	t_bool *quote_in_var, t_bool state)
+{
+	int	i;
+
+	i = ft_strlen(*quote);
+	if (*tmp_char && (*tmp_char)->was_in_a_variable == TRUE
+		&& *quote_in_var == FALSE)
+		*quote_in_var = state;
+	if (state != *quote_in_var)
+	{
+		if (*tmp_char)
+			(*tmp_char) = (*tmp_char)->next;
+		if (*tmp_char)
+			(*quote)[i] = (*tmp_char)->value;
+	}
+	if (*tmp_char && (*tmp_char)->next
+		&& state == TRUE && *quote_in_var == FALSE
+		&& ((*tmp_char)->next->value == '"' || (*tmp_char)->next->value == '\''))
+	{
+		*quote_in_var = TRUE;
+		*tmp_char = (*tmp_char)->next;
+		((*quote))[i + 1] = (*tmp_char)->value;
+	}
+	if (state != *quote_in_var && *tmp_char && (*tmp_char)->next
+		&& state == TRUE && ((*tmp_char)->next->value != '"'
+		|| (*tmp_char)->next->value != '\'')
+		&& ((*tmp_char)->value == '"' || (*tmp_char)->value == '\''))
+	{
+		if (*tmp_char)
+			(*tmp_char) = (*tmp_char)->next;
+		if (*tmp_char)
+			(*quote)[i] = (*tmp_char)->value;
+	}
+}
+
 int	function_verif_quote(t_char_list **tmp_char, char **quote,
 	t_bool *quote_in_var)
 {
@@ -105,23 +141,7 @@ int	function_verif_quote(t_char_list **tmp_char, char **quote,
 			which_quote_is(quote, &quoted, quote_in_var, i);
 		i++;
 	}
-	if (state != *quote_in_var)
-	{
-		(*tmp_char) = (*tmp_char)->next;
-		if (*tmp_char)
-			(*quote)[ft_strlen(*quote)] = (*tmp_char)->value;
-	}
-	if (*tmp_char && (*tmp_char)->next
-		&& state == TRUE && *quote_in_var == FALSE
-		&& ((*tmp_char)->next->value == '"' || (*tmp_char)->next->value == '\''))
-	{
-		*quote_in_var = TRUE;
-		*tmp_char = (*tmp_char)->next;
-		((*quote))[i + 1] = (*tmp_char)->value;
-	}
-	// Recall the function /\
-	// if (*tmp_char && ((*tmp_char)->value == '"' || (*tmp_char)->value == '\''))
-	// 	function_verif_quote(tmp_char, quote, quote_in_var);
+	verif_multi_quote(tmp_char, quote, quote_in_var, state);
 	return (*quote_in_var);
 }
 
