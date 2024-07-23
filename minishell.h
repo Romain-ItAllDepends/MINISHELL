@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/23 09:14:26 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/23 14:00:33 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -675,5 +675,6 @@ void							verif_multi_quote(t_char_list **tmp_char,
 									t_bool state);
 int								white_space(t_char_list **tmp_char);
 int								skip_useless_quote(t_char_list **tmp);
+void							ft_sigint(int signal);
 
 #endif

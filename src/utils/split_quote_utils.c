@@ -6,7 +6,7 @@
 /*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 09:08:50 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/23 09:24:49 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/23 12:13:58 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ void	verif_multi_quote(t_char_list **tmp_char, char **quote,
 		*quote_in_var = state;
 	if (state != *quote_in_var)
 	{
-		if (*quote_in_var == FALSE)
-			*quote_in_var = TRUE;
+		// 	*quote_in_var = TRUE;
 		special_case_quote(tmp_char, quote, i);
+		if (*quote_in_var == FALSE)
+			*quote_in_var = is_not_in_quote(*quote, *tmp_char);
 	}
 	if (*tmp_char && (*tmp_char)->next
 		&& state == TRUE && *quote_in_var == FALSE
