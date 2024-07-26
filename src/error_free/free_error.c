@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:53:00 by rgobet            #+#    #+#             */
-/*   Updated: 2024/07/26 09:08:15 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/26 10:47:06 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	verif_error_1(char *str)
 
 	len_mid = ft_strcspn(str, "=");
 	if (((ft_isdigit(str[0]) || str[0] == '='
-			|| ft_isalpha(str[0]) == 0) && str[0] != '_')
-			|| (set_append(str, &len_mid) == TRUE
+				|| ft_isalpha(str[0]) == 0) && str[0] != '_')
+		|| (set_append(str, &len_mid) == TRUE
 			&& str[ft_strlen(str) - 1] == '+'))
 	{
 		error_export_1(str);

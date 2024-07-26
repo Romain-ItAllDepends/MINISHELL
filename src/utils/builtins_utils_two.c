@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils_two.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 07:00:41 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/10 08:01:27 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/26 10:44:08 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,21 @@ int	ft_isdigit(int c)
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
+}
+
+void	refresh_env_path(t_env *env, char *var_name)
+{
+	t_env	*current;
+	char	*path_current;
+
+	current = find_env_by_var_name(env, var_name);
+	path_current = getcwd(NULL, 0);
+	if (current && current->full_path && path_current)
+	{
+		free(current->full_path);
+		free(current->value);
+		current->value = copy(path_current);
+		current->full_path = ft_strjoin(var_name, path_current);
+	}
+	free(path_current);
 }

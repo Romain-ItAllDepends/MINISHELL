@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:21:16 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/26 08:59:28 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/26 10:45:06 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,39 +67,13 @@ static int	check_cd(char **command)
 
 int	ft_cd(char **command, t_env **env)
 {
-	char	*path_current;
-	char	*stock;
 	t_env	*current;
 
 	current = *env;
 	check_cd(command);
-	current = find_env_by_var_name(*env, "OLDPWD");
-	if (!current)
-		return (EXIT_SUCCESS);
-	path_current = getcwd(NULL, 0);
-	if (current && current->full_path)
-	{
-		free(current->full_path);
-		free(current->value);
-		if (path_current)
-			current->value = copy(path_current);
-		current->full_path = ft_strjoin("OLDPWD=", path_current);
-		free(path_current);
-		current = *env;
-		current = find_env_by_var_name(*env, "PWD");
-		stock = command[1];
-		if (ft_chdid_and_verif(stock) == 1)
-			return (2);
-	}
-	if (current && current->full_path)
-	{
-		free(current->full_path);
-		free(current->value);
-		path_current = getcwd(NULL, 0);
-		if (path_current)
-			current->value = copy(path_current);
-		current->full_path = ft_strjoin("PWD=", path_current);
-		free(path_current);
-	}
+	refresh_env_path(*env, "OLDPWD=");
+	if (ft_chdid_and_verif(command[1]) == 1)
+		return (2);
+	refresh_env_path(*env, "PWD=");
 	return (EXIT_SUCCESS);
 }

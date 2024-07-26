@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/26 09:09:45 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/26 10:38:19 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -678,5 +678,6 @@ int								skip_useless_quote(t_char_list **tmp);
 void							ft_sigint(int signal);
 void							ft_sigquit(int signal);
 t_bool							set_append(char *str, int *len_mid);
+void							refresh_env_path(t_env *env, char *var_name);
 
 #endif
