@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils_two.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 05:44:21 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/26 09:09:34 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:35:08 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 void	hide_and_update_env_var(t_env *tmp_env, char *cmd)
 {
-	if (tmp_env->value)
-		free(tmp_env->value);
-	if (!cmd || (cmd && ft_strchr(cmd, '=') != 0))
-		tmp_env->hide = FALSE;
-	else
-		tmp_env->hide = TRUE;
-	if (tmp_env->full_path)
-		free(tmp_env->full_path);
-	tmp_env->full_path = copy(cmd);
-	tmp_env->value = NULL;
+	if (!tmp_env->value)
+	{
+		if (!cmd || (cmd && ft_strchr(cmd, '=') != 0))
+			tmp_env->hide = FALSE;
+		else
+			tmp_env->hide = TRUE;
+		if (tmp_env->full_path)
+			free(tmp_env->full_path);
+		tmp_env->full_path = copy(cmd);
+		tmp_env->value = NULL;
+	}
 }
 
 void	update_env_var(t_env *tmp_env, char *cmd, char *value)
