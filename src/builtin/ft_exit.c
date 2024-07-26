@@ -49,7 +49,7 @@ static int	check_numeric_argument(char **command_line, t_vars *vars)
 		&& ft_atol(command_line[1]) == 0)
 	{
 		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
-		clear_history();
+		rl_clear_history();
 		vars->exit_code = 2;
 		return (0);
 	}
@@ -73,7 +73,7 @@ static int	has_invalid_argument(char **command_line, t_vars *vars)
 			|| ft_atol(command_line[1]) > 9223372036854775807)
 		{
 			ft_putstr_fd(": numeric argument required\n", 2);
-			clear_history();
+			rl_clear_history();
 			vars->exit_code = 2;
 			return (0);
 		}

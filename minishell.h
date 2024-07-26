@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:05:59 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/23 14:00:33 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/26 09:09:45 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -676,5 +676,7 @@ void							verif_multi_quote(t_char_list **tmp_char,
 int								white_space(t_char_list **tmp_char);
 int								skip_useless_quote(t_char_list **tmp);
 void							ft_sigint(int signal);
+void							ft_sigquit(int signal);
+t_bool							set_append(char *str, int *len_mid);
 
 #endif

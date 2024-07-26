@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:21:16 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/23 11:26:23 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/26 08:59:28 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	check_error_ft_cd_home(char **command)
 			ft_putstr_fd("The HOME environment variable is not defined.\n", 2);
 			return (1);
 		}
-		if (chdir(home) != 0)
+		if (home && chdir(home) != 0)
 		{
 			ft_putstr_fd("Error when changing directory.\n", 2);
 			return (1);
@@ -47,7 +47,7 @@ static int	check_error_ft_cd(char **command)
 
 static int	ft_chdid_and_verif(char *stock)
 {
-	if (chdir(stock) == -1)
+	if (stock && chdir(stock) == -1)
 	{
 		ft_putstr_fd(stock, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);

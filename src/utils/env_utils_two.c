@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils_two.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 05:44:21 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/13 18:40:05 by rgobet           ###   ########.fr       */
+/*   Updated: 2024/07/26 09:09:34 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	verif(int i, int len_mid, t_bool append, char *str)
 	return (0);
 }
 
-static t_bool	set_append(char *str, int *len_mid)
+t_bool	set_append(char *str, int *len_mid)
 {
 	if (str[*len_mid - 1] == '+')
 		*len_mid -= 1;
