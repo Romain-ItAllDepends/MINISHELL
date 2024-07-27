@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgobet <rgobet@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:21:16 by tebandam          #+#    #+#             */
-/*   Updated: 2024/07/26 10:45:06 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/07/27 07:07:18 by rgobet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ int	ft_cd(char **command, t_env **env)
 
 	current = *env;
 	check_cd(command);
-	refresh_env_path(*env, "OLDPWD=");
+	refresh_env_path(*env, "OLDPWD");
 	if (ft_chdid_and_verif(command[1]) == 1)
 		return (2);
-	refresh_env_path(*env, "PWD=");
+	refresh_env_path(*env, "PWD");
 	return (EXIT_SUCCESS);
 }
